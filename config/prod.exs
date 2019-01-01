@@ -1,6 +1,7 @@
 use Mix.Config
 
 config :trello, TrelloWeb.Endpoint,
+  http: [:inet6, port: System.get_env("PORT")],
   url: [scheme: "https", host: "trello.corynorris.me", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
