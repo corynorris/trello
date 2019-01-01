@@ -69,7 +69,7 @@ config :phoenix, :plug_init_mode, :runtime
 # Configure your database
 config :trello, Trello.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "password",
   database: "trello_dev",
   hostname: "localhost",
-  pool_size: 10
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")

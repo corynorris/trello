@@ -11,7 +11,7 @@ config :logger, level: :info
 
 config :trello, Trello.Repo,
   url: System.get_env("DATABASE_URL"),
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  pool_size: 15,
   ssl: true
 
 # config :trello, Trello.Guardian,
