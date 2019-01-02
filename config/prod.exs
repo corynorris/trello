@@ -1,7 +1,8 @@
 use Mix.Config
 
 config :trello, TrelloWeb.Endpoint,
-  # http: [:inet6, port: System.get_env("PORT")],
+  http: [:inet6, port: System.get_env("PORT")],
+  https: [:inet6, port: System.get_env("PORT")],
   url: [scheme: "https", host: "trello.corynorris.me", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
@@ -12,7 +13,7 @@ config :logger, level: :info
 
 config :trello, Trello.Repo,
   url: System.get_env("DATABASE_URL"),
-  pool_size: 15,
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
 
 # config :trello, Trello.Guardian,
