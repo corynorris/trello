@@ -22,13 +22,16 @@ import { h, render, Component } from "preact";
 import Router from "preact-router";
 
 import { Provider, connect } from "preact-redux";
-import Home from "./routes/Home";
-import About from "./routes/About";
+import Home from "./pages/Home";
+import SignInPage from "./pages/SignInPage";
+import About from "./pages/About";
 import store from "./store";
+
 const Main = () => (
   <Provider store={store}>
     <Router>
       <Home path="/" />
+      <SignInPage path="/sign_in" />
       <About path="/about" />
     </Router>
   </Provider>
