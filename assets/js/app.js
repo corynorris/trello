@@ -16,8 +16,20 @@ import "phoenix_html";
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
 
+import "preact-material-components/style.css";
+
 import { h, render, Component } from "preact";
+import Router from "preact-router";
 
 import Home from "./components/Home";
+import Header from "./components/Header";
+import About from "./components/About";
 
-render(<Home />, document.getElementById("root"));
+const Main = () => (
+  <Router>
+    <Header path="/" />
+    <About path="/about" />
+  </Router>
+);
+
+render(<Main />, document.getElementById("root"));

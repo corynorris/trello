@@ -1,10 +1,18 @@
 import { h, render, Component } from "preact";
-import Header from "./Header";
-export default class Home extends Component {
+
+export default class About extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <section className="phx-hero">
+          <h1>About</h1>
+          <p>
+            A productive web framework that
+            <br />
+            does not compromise speed and maintainability.
+          </p>
+        </section>
+
         <section className="row">
           <article className="column">
             <h2>Resources</h2>
