@@ -21,15 +21,17 @@ import "preact-material-components/style.css";
 import { h, render, Component } from "preact";
 import Router from "preact-router";
 
-import Home from "./components/Home";
-import Header from "./components/Header";
-import About from "./components/About";
-
+import { Provider, connect } from "preact-redux";
+import Home from "./routes/Home";
+import About from "./routes/About";
+import store from "./store";
 const Main = () => (
-  <Router>
-    <Header path="/" />
-    <About path="/about" />
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <Home path="/" />
+      <About path="/about" />
+    </Router>
+  </Provider>
 );
 
 render(<Main />, document.getElementById("root"));
