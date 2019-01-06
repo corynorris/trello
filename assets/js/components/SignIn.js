@@ -12,6 +12,20 @@ import "preact-material-components/Card/style.css";
 import "preact-material-components/Button/style.css";
 
 class SignIn extends Component {
+  constructor() {
+    super();
+    this.state = {};
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state);
+    this.props.signIn(this.state);
+  }
+
   render() {
     return (
       <Card style={{ padding: "1.5em" }}>
@@ -30,15 +44,30 @@ class SignIn extends Component {
           <h1>Sign In</h1>
         </div>
         <div className="card-media">
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <div style={{ marginBottom: "2em" }}>
-              <TextField label="Username" fullwidth={true} type="text" />
-              <TextField label="Password" fullwidth={true} type="password" />
+              <TextField
+                name="email"
+                placeholder="Email"
+                onChange={this.onChange}
+                fullwidth={true}
+                type="text"
+              />
+              <TextField
+                name="password"
+                placeholder="Password"
+                onChange={this.onChange}
+                fullwidth={true}
+                type="password"
+              />
             </div>
-            <Button style={{ width: "100%" }} outlined>
+            <Button style={{ width: "100%" }} raised>
               Sign In
             </Button>
           </form>
+          <Button style={{ width: "100%", fontSize: "12px" }} href="/sign_up">
+            create an account
+          </Button>
         </div>
       </Card>
     );

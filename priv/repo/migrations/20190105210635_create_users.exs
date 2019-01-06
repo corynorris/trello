@@ -3,13 +3,14 @@ defmodule Trello.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :first_name, :string
-      add :last_name, :string
-      add :email, :string
-      add :encrypted_password, :string
+      add(:email, :string)
+      add(:first_name, :string)
+      add(:last_name, :string)
+      add(:encrypted_password, :string)
 
       timestamps()
     end
 
+    create(unique_index(:users, [:email]))
   end
 end

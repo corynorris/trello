@@ -1,6 +1,16 @@
 defmodule TrelloWeb.Router do
   use TrelloWeb, :router
 
+  # Our pipeline implements "maybe" authenticated. We'll use the `:ensure_auth` below for when we need to make sure someone is logged in.
+  pipeline :auth do
+    plug(Trello.Auth.Pipeline)
+  end
+
+  # We use ensure_auth to fail if there is no one logged in
+  pipeline :ensure_auth do
+    plug(Guardian.Plug.EnsureAuthenticated)
+  end
+
   pipeline :browser do
     plug(:accepts, ["html"])
     plug(:fetch_session)
@@ -11,8 +21,7 @@ defmodule TrelloWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
-
-    resources("/users", UserController, except: [:new, :edit])
+    plug(Trello.Auth.Pipeline)
   end
 
   scope "/", TrelloWeb do
@@ -22,7 +31,12 @@ defmodule TrelloWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", TrelloWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TrelloWeb do
+    pipe_through(:api)
+
+    scope "/v1" do
+      post("/sign_up", UserController, :create)
+      resources("/users", UserController, except: [:new, :edit])
+    end
+  end
 end

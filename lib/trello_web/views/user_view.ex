@@ -10,11 +10,25 @@ defmodule TrelloWeb.UserView do
     %{data: render_one(user, UserView, "user.json")}
   end
 
-  def render("user.json", %{user: user}) do
-    %{id: user.id,
+  def render("user.json", %{user: user, jwt: token}) do
+    %{
+      id: user.id,
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
-      encrypted_password: user.encrypted_password}
+      jwt: token
+    }
+  end
+
+  def render("jwt.json", %{user: user, jwt: token}) do
+    %{
+      user: %{
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email
+      },
+      jwt: token
+    }
   end
 end

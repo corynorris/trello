@@ -1,5 +1,5 @@
 import { h, render, Component } from "preact";
-import SignIn from "../components/SignIn";
+import SignInContainer from "../containers/SignInContainer";
 
 class SignInPage extends Component {
   render() {
@@ -19,7 +19,7 @@ class SignInPage extends Component {
             marginRight: "auto"
           }}
         >
-          <SignIn />
+          <SignInContainer />
         </div>
       </div>
     );

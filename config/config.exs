@@ -7,8 +7,7 @@
 # General application configuration
 use Mix.Config
 
-config :trello,
-  ecto_repos: [Trello.Repo]
+config :trello, ecto_repos: [Trello.Repo]
 
 # Configures the endpoint
 config :trello, TrelloWeb.Endpoint,
@@ -21,6 +20,10 @@ config :trello, TrelloWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :trello, Trello.Auth.Guardian,
+  issuer: "trello",
+  secret_key: "secret"
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason

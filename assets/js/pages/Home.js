@@ -1,72 +1,37 @@
 import { h, render, Component } from "preact";
-import Header from "../components/Header";
-import { connect } from "preact-redux";
-import { addTodo, removeTodo } from "../actions/actions";
-import FormField from "preact-material-components/FormField";
-import TextField from "preact-material-components/TextField";
-import LayoutGrid from "preact-material-components/LayoutGrid";
-import List from "preact-material-components/List";
+import Router, { route } from "preact-router";
+import { Provider } from "preact-redux";
 
-import "preact-material-components/TextField/style.css";
-import "preact-material-components/List/style.css";
-import "preact-material-components/LayoutGrid/style.css";
+import SignInPage from "./SignInPage";
+import SignUpPage from "./SignUpPage";
 
 class Home extends Component {
-  addTodos = () => {
-    this.props.addTodo(this.state.text);
-    this.setState({ text: "" });
+  handleRoute = e => {
+    //   const { dispatch } = store;
+    //   const { session } = store.getState();
+    //   const { currentUser } = session;
+
+    //   if (!currentUser && localStorage.getItem("phoenixAuthToken")) {
+    //     dispatch(Actions.currentUser());
+    //   } else if (!localStorage.getItem("phoenixAuthToken")) {
+    //     route("/sign_in");
+    //   }
+    if (e.url !== "/sign_in" && e.url !== "/sign_up") {
+      const isAuthed = false;
+      if (!isAuthed) route("/sign_in", true);
+    }
   };
 
-  removeTodo = todo => {
-    this.props.removeTodo(todo);
-  };
-
-  updateText = e => {
-    console.log("update text: ", e.target.value);
-    this.setState({ text: e.target.value });
-  };
-
-  render({ todos }, { text }) {
+  render({ store }) {
     return (
-      <div id="app">
-        <Header />
-        <LayoutGrid className="page">
-          <LayoutGrid.Inner>
-            <LayoutGrid.Cell cols="4" />
-            <LayoutGrid.Cell cols="4">
-              <form onSubmit={this.addTodos} action="javascript:">
-                <FormField>
-                  <TextField
-                    label="todo"
-                    value={text}
-                    onInput={this.updateText}
-                  />
-                </FormField>
-              </form>
-              <List>
-                {todos.map(todo => (
-                  <List.Item key={todo.id}>{todo.text}</List.Item>
-                ))}
-              </List>
-            </LayoutGrid.Cell>
-            <LayoutGrid.Cell cols="4" />
-          </LayoutGrid.Inner>
-        </LayoutGrid>
-      </div>
+      <Provider store={store}>
+        <Router onChange={this.handleRoute}>
+          <SignInPage path="/sign_in" />
+          <SignUpPage path="/sign_up" />
+        </Router>
+      </Provider>
     );
   }
 }
-const mapStateToProps = state => ({
-  todos: state.todos,
-  text: state.text
-});
 
-const mapDispatchToProps = dispatch => ({
-  addTodo: id => dispatch(addTodo(id)),
-  removeTodo: id => dispatch(removeTodo(id))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default Home;

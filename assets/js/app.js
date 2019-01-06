@@ -1,40 +1,15 @@
-// We need to import the CSS so that webpack will load it.
-// The MiniCssExtractPlugin is used to separate it out into
-// its own CSS file.
-import css from "../css/app.css";
-
-// webpack automatically bundles all modules in your
-// entry points. Those entry points can be configured
-// in "webpack.config.js".
-//
-// Import dependencies
-//
-import "phoenix_html";
-
-// Import local files
-//
-// Local files can be imported directly using relative paths, for example:
-// import socket from "./socket"
-
-import "preact-material-components/style.css";
-
-import { h, render, Component } from "preact";
-import Router from "preact-router";
-
-import { Provider, connect } from "preact-redux";
+import { h, render } from "preact";
+import "../css/app.css";
 import Home from "./pages/Home";
-import SignInPage from "./pages/SignInPage";
-import About from "./pages/About";
-import store from "./store";
+import rootReducer from "./reducers";
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
 
-const Main = () => (
-  <Provider store={store}>
-    <Router>
-      <Home path="/" />
-      <SignInPage path="/sign_in" />
-      <About path="/about" />
-    </Router>
-  </Provider>
+// import "preact-material-components/style.css";
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
 );
 
-render(<Main />, document.getElementById("root"));
+render(<Home store={store} />, document.getElementById("root"));

@@ -13,6 +13,22 @@ import "preact-material-components/TopAppBar/style.css";
 // import style from './style';
 
 export default class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      darkMode: false
+    };
+    if (typeof window !== "undefined") {
+      this.state.toolbarTitle =
+        window.location.pathname === "/"
+          ? null
+          : (
+              menuItems.find(item => item.link === window.location.pathname) ||
+              {}
+            ).text;
+    }
+  }
+
   closeDrawer() {
     this.drawer.MDComponent.open = false;
     this.state = {
