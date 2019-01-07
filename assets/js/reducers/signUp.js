@@ -1,9 +1,8 @@
 import { SIGN_UP_BEGIN, SIGN_UP_SUCCESS, SIGN_UP_FAILURE } from "../actions";
 
 const initialState = {
-  signUp: false,
   loading: false,
-  errors: null
+  errors: {}
 };
 
 const signUp = (state = initialState, action) => {
@@ -13,14 +12,13 @@ const signUp = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        errors: null
+        errors: {}
       };
     case SIGN_UP_SUCCESS:
       console.log("SIGN_UP_SUCCESS received");
       return {
         ...state,
-        loading: false,
-        signUp: true
+        loading: false
       };
     case SIGN_UP_FAILURE:
       console.log("SIGN_UP_FAILURE received");

@@ -27,7 +27,7 @@ defmodule Trello.Accounts do
         {:error, :invalid_credentials}
 
       user ->
-        if Bcrypt.checkpw(plain_text_password, user.password) do
+        if Bcrypt.checkpw(plain_text_password, user.encrypted_password) do
           {:ok, user}
         else
           {:error, :invalid_credentials}

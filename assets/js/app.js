@@ -1,6 +1,6 @@
 import { h, render } from "preact";
 import "../css/app.css";
-import Home from "./pages/Home";
+import Routes from "./pages/Routes";
 import rootReducer from "./reducers";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
@@ -12,4 +12,4 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk))
 );
 
-render(<Home store={store} />, document.getElementById("root"));
+render(<Routes store={store} />, document.getElementById("root"));

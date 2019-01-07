@@ -1,26 +1,24 @@
 defmodule TrelloWeb.SessionView do
   use TrelloWeb, :view
-  alias TrelloWeb.SessionView
 
-  def render("forbiddon.json", %{error: error}) do
+  def render("forbidden.json", _data) do
     %{
-      data: %{
-        error: error
+      errors: %{
+        email: ["Invalid username or password"],
+        password: ["Invalid username or password"]
       }
     }
   end
 
-  def render("show.json", %{jwt: jwt, user: user}) do
-    %{data: render_one(user, SessionView, "user.json")}
-  end
-
-  def render("user.json", %{jwt: jwt, user: user}) do
+  def render("jwt.json", %{user: user, jwt: token}) do
     %{
-      id: user.id,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      jwt: jwt
+      user: %{
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email
+      },
+      jwt: token
     }
   end
 end

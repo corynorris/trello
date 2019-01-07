@@ -18,15 +18,15 @@ class SignIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
-
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
-    this.props.signIn(this.state);
+    this.props.signInRequest(this.state);
   }
 
-  render() {
+  render({ loading, errors }) {
     return (
       <Card style={{ padding: "1.5em" }}>
         <div
@@ -47,17 +47,28 @@ class SignIn extends Component {
           <form onSubmit={this.handleSubmit}>
             <div style={{ marginBottom: "2em" }}>
               <TextField
+                disabled={loading}
                 name="email"
                 placeholder="Email"
-                onChange={this.onChange}
+                dense={true}
+                onChange={this.onChange.bind(this)}
+                value={this.state.email}
                 fullwidth={true}
-                type="text"
+                valid={errors.email ? false : true}
+                helperText={errors.email}
+                helperTextValidationMsg={true}
+                type="email"
               />
               <TextField
+                disabled={loading}
                 name="password"
                 placeholder="Password"
-                onChange={this.onChange}
+                onChange={this.onChange.bind(this)}
+                value={this.state.password}
                 fullwidth={true}
+                valid={errors.password ? false : true}
+                helperText={errors.password}
+                helperTextValidationMsg={true}
                 type="password"
               />
             </div>

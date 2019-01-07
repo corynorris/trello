@@ -36,6 +36,7 @@ defmodule TrelloWeb.Router do
 
     scope "/v1" do
       post("/sign_up", UserController, :create)
+      post("/sign_in", SessionController, :sign_in)
       resources("/users", UserController, except: [:new, :edit])
     end
   end

@@ -7,11 +7,6 @@ defmodule TrelloWeb.UserController do
 
   action_fallback(TrelloWeb.FallbackController)
 
-  def index(conn, _params) do
-    users = Accounts.list_accounts()
-    render(conn, "index.json", users: users)
-  end
-
   def create(conn, %{"user" => user_params}) do
     with {:ok, %User{} = user} <- Accounts.create_account(user_params),
          {:ok, token, _full_claims} = Guardian.encode_and_sign(user) do
@@ -31,14 +26,6 @@ defmodule TrelloWeb.UserController do
 
     with {:ok, %User{} = user} <- Accounts.update_account(user, user_params) do
       render(conn, "show.json", user: user)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    user = Accounts.get_account!(id)
-
-    with {:ok, %User{}} <- Accounts.delete_account(user) do
-      send_resp(conn, :no_content, "")
     end
   end
 end

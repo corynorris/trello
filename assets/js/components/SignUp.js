@@ -29,8 +29,7 @@ class SignUp extends Component {
     this.props.signUpRequest(this.state);
   }
 
-  render({ loading, signUp, errors }) {
-    errors = errors || {};
+  render({ loading, errors }) {
     return (
       <Card style={{ padding: "1.5em" }}>
         <div
@@ -52,7 +51,6 @@ class SignUp extends Component {
             <div style={{ marginBottom: "2em" }}>
               <TextField
                 disabled={loading}
-                id="email"
                 name="email"
                 placeholder="Email"
                 dense={true}
@@ -64,11 +62,9 @@ class SignUp extends Component {
                 helperTextValidationMsg={true}
                 type="email"
               />
-
               <TextField
                 disabled={loading}
                 name="first_name"
-                id="first_name"
                 placeholder="First Name"
                 onChange={this.onChange.bind(this)}
                 value={this.state.first_name}
@@ -81,7 +77,6 @@ class SignUp extends Component {
               <TextField
                 disabled={loading}
                 name="last_name"
-                id="last_name"
                 placeholder="Last Name"
                 onChange={this.onChange.bind(this)}
                 value={this.state.last_name}
@@ -94,7 +89,6 @@ class SignUp extends Component {
               <TextField
                 disabled={loading}
                 name="password"
-                id="password"
                 placeholder="Password"
                 onChange={this.onChange.bind(this)}
                 value={this.state.password}
@@ -104,11 +98,9 @@ class SignUp extends Component {
                 helperTextValidationMsg={true}
                 type="password"
               />
-
               <TextField
                 disabled={loading}
                 name="password_confirmation"
-                id="password_confirmation"
                 placeholder="Password Confirmation"
                 onChange={this.onChange.bind(this)}
                 value={this.state.password_confirmation}

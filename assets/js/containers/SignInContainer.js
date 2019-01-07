@@ -4,15 +4,21 @@ import { signIn } from "../actions";
 
 import SignIn from "../components/SignIn";
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ...state.signIn
+  };
+};
+
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    signIn: () => {
-      dispatch(signIn(false));
+    signInRequest: userData => {
+      dispatch(signIn(userData));
     }
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SignIn);
