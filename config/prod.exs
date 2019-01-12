@@ -15,6 +15,6 @@ config :trello, Trello.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
 
-config :trello, Trello.Auth.Guardian,
+config :trello, TrelloWeb.Guardian,
   issuer: "trello",
   secret_key: Map.fetch!(System.get_env(), "SECRET_KEY")

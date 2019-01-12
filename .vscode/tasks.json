@@ -1,12 +1,38 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "echo",
-            "type": "shell",
-            "command": "echo Hello"
-        }
-    ]
+    "tasks": [{
+        "label": "mix test",
+        "type": "shell",
+        "group": "test",
+        "command": "mix",
+        "args": ["test", "--color", "--trace"],
+        "options": {
+            "cwd": "${workspaceRoot}",
+            "requireFiles": [
+                "test/**/test_helper.exs",
+                "test/**/*_test.exs"
+            ],
+        },
+        "problemMatcher": "$mixTestFailure"
+    }, {
+        "label": "mix test current line",
+        "type": "shell",
+        "group": "test",
+        "command": "mix",
+        "args": ["test", "--color", "--trace", "${relativeFile}:${lineNumber}"],
+        "options": {
+            "cwd": "${workspaceRoot}",
+            "requireFiles": [
+                "test/**/test_helper.exs",
+                "test/**/*_test.exs"
+            ],
+        },
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+        },
+        "problemMatcher": "$mixTestFailure"
+    }]
 }

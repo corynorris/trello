@@ -21,7 +21,7 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :trello, Trello.Auth.Guardian,
+config :trello, TrelloWeb.Guardian,
   issuer: "trello",
   secret_key: "secret"
 

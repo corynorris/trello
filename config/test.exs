@@ -12,7 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :trello, Trello.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "password",
   database: "trello_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

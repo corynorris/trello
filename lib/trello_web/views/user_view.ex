@@ -1,34 +1,25 @@
 defmodule TrelloWeb.UserView do
   use TrelloWeb, :view
-  alias TrelloWeb.UserView
+  alias TrelloWeb.{UserView, FormatHelpers}
 
-  def render("index.json", %{users: users}) do
-    %{data: render_many(users, UserView, "user.json")}
+  def render("show.json", %{token: jwt, user: user}) do
+    %{user: render_one(user, UserView, "user.json"), token: jwt}
   end
 
   def render("show.json", %{user: user}) do
-    %{data: render_one(user, UserView, "user.json")}
+    %{user: render_one(user, UserView, "user.json")}
   end
 
-  def render("user.json", %{user: user, jwt: token}) do
-    %{
-      id: user.id,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      jwt: token
-    }
+  def render("user.json", %{user: user}) do
+    user
+    |> Map.from_struct()
+    |> Map.put(:inserted_at, NaiveDateTime.to_iso8601(user.inserted_at))
+    |> Map.put(:updated_at, NaiveDateTime.to_iso8601(user.updated_at))
+    |> Map.take([:id, :email, :first_name, :last_name, :inserted_at, :updated_at])
+    |> FormatHelpers.camelize()
   end
 
-  def render("jwt.json", %{user: user, jwt: token}) do
-    %{
-      user: %{
-        id: user.id,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email
-      },
-      jwt: token
-    }
+  def render("error.json", %{message: message}) do
+    %{message: message}
   end
 end

@@ -5,23 +5,26 @@ import { Provider } from "preact-redux";
 import SignInPage from "./SignInPage";
 import SignUpPage from "./SignUpPage";
 import Home from "./Home";
+import { getCurrentUser, signOutUser } from "../actions";
+import { JWT_TOKEN } from "../constants";
 
 class Routes extends Component {
   handleRoute = e => {
-    const { session } = this.props.store.getState();
+    const store = this.props.store;
 
-    //   const { dispatch } = store;
-    //   const { session } = store.getState();
-    //   const { currentUser } = session;
+    const { dispatch } = store;
+    const { session } = store.getState();
+    const { currentUser } = session;
 
-    //   if (!currentUser && localStorage.getItem("phoenixAuthToken")) {
-    //     dispatch(Actions.currentUser());
-    //   } else if (!localStorage.getItem("phoenixAuthToken")) {
-    //     route("/sign_in");
-    //   }
-    if (e.url !== "/sign_in" && e.url !== "/sign_up") {
-      const isAuthed = session.signedIn;
-      if (!isAuthed) route("/sign_in", true);
+    if (e.url === "/sign_out") {
+      dispatch(signOutUser());
+      route("/sign_in", true);
+    } else if (!currentUser && localStorage.getItem(JWT_TOKEN)) {
+      // They have a token so we can sign them in
+      dispatch(getCurrentUser());
+    } else if (!localStorage.getItem(JWT_TOKEN)) {
+      // No token, and not signed in
+      if (e.url !== "/sign_in" && e.url !== "/sign_up") route("/sign_in");
     }
   };
 

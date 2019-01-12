@@ -1,8 +1,7 @@
-import { SIGN_UP_SUCCESS, SIGN_IN_SUCCESS } from "../actions";
+import { SIGN_UP_SUCCESS, SIGN_IN_SUCCESS, SIGN_OUT } from "../actions";
 
 const initialState = {
   signedIn: false,
-  jwt: null,
   currentUser: null
 };
 
@@ -10,13 +9,16 @@ const session = (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN_SUCCESS:
     case SIGN_UP_SUCCESS:
-      console.log("SIGN_UP_SUCCESS received");
-      console.log(action);
       return {
         ...state,
         signedIn: true,
-        jwt: action.payload.jwt,
         currentUser: action.payload.user
+      };
+    case SIGN_OUT:
+      return {
+        ...state,
+        signedIn: false,
+        currentUser: null
       };
     default:
       return state;
