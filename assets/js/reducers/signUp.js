@@ -1,4 +1,8 @@
-import { SIGN_UP_BEGIN, SIGN_UP_SUCCESS, SIGN_UP_FAILURE } from "../actions";
+import {
+  SIGN_UP_BEGIN,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE
+} from "../actions/signup";
 
 const initialState = {
   loading: false,

@@ -1,4 +1,4 @@
-import { SIGN_UP_SUCCESS, SIGN_IN_SUCCESS, SIGN_OUT } from "../actions";
+import { SIGN_UP_SUCCESS, SIGN_IN_SUCCESS, SIGN_OUT } from "../actions/session";
 
 const initialState = {
   signedIn: false,

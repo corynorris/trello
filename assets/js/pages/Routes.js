@@ -5,7 +5,7 @@ import { Provider } from "preact-redux";
 import SignInPage from "./SignInPage";
 import SignUpPage from "./SignUpPage";
 import Home from "./Home";
-import { getCurrentUser, signOutUser } from "../actions";
+import { getCurrentUser, signOutUser } from "../actions/session";
 import { JWT_TOKEN } from "../constants";
 
 class Routes extends Component {

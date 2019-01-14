@@ -3,7 +3,7 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
   SIGN_IN_AUTH_FAILURE
-} from "../actions";
+} from "../actions/session";
 
 const initialState = {
   loading: false,
@@ -13,20 +13,17 @@ const initialState = {
 const signIn = (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN_BEGIN:
-      console.log("SIGN_IN_BEGIN received");
       return {
         ...state,
         loading: true,
         errors: {}
       };
     case SIGN_IN_SUCCESS:
-      console.log("SIGN_IN_SUCCESS received");
       return {
         ...state,
         loading: false
       };
     case SIGN_IN_AUTH_FAILURE:
-      console.log("AUTH_FAILURE received");
       return {
         ...state,
         loading: false,
@@ -36,7 +33,6 @@ const signIn = (state = initialState, action) => {
         }
       };
     case SIGN_IN_FAILURE:
-      console.log("SIGN_IN_FAILURE received");
       return {
         ...state,
         loading: false,

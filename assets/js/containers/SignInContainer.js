@@ -1,6 +1,6 @@
 import { h, render, Component } from "preact";
 import { connect } from "preact-redux";
-import { signIn } from "../actions";
+import { signIn } from "../actions/session";
 
 import SignIn from "../components/SignIn";
 

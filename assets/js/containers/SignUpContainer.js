@@ -1,6 +1,6 @@
 import { h, render, Component } from "preact";
 import { connect } from "preact-redux";
-import { signUp } from "../actions";
+import { signUp } from "../actions/signup";
 
 import SignUp from "../components/SignUp";
 
