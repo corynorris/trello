@@ -12,10 +12,7 @@ class Home extends Component {
         }}
       >
         <Header />
-        <div style={{ padding: "6.5em" }}>
-          HELLO AND WELCOME
-          {console.log(this.props)}
-        </div>
+        <div style={{ padding: "6.5em" }}>HELLO AND WELCOME</div>
       </div>
     );
   }

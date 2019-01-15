@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Socket } from "phoenix";
 import { route } from "preact-router";
 import { JWT_TOKEN } from "../constants";
 
@@ -6,7 +7,36 @@ export const SIGN_IN_BEGIN = "SIGN_IN_BEGIN";
 export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
 export const SIGN_IN_FAILURE = "SIGN_IN_FAILURE";
 export const SIGN_IN_AUTH_FAILURE = "SIGN_IN_AUTH_FAILURE";
-export const SIGN_OUT = "SIGN_OUT";
+export const SIGN_OUT_SUCCESS = "SIGN_OUT_SUCCESS";
+export const CHANNEL_JOIN_SUCCESS = "CHANNEL_JOIN_SUCCESS";
+
+export function setCurrentUser(user) {
+  return dispatch => {
+    let socket = new Socket("/socket", {
+      params: { token: localStorage.getItem(JWT_TOKEN) }
+    });
+
+    socket.connect();
+    const channel = socket.channel(`users:${user.id}`);
+
+    channel.join().receive("ok", () => {
+      console.log("joined successfully");
+      dispatch(
+        channelJoinSuccess({
+          socket: socket,
+          channel: channel
+        })
+      );
+    });
+  };
+}
+
+export const channelJoinSuccess = socketData => ({
+  type: CHANNEL_JOIN_SUCCESS,
+  payload: {
+    ...socketData
+  }
+});
 
 export function getCurrentUser() {
   return dispatch => {
@@ -16,21 +46,13 @@ export function getCurrentUser() {
 
     return axios.get("/api/v1/current_user", { headers: header }).then(json => {
       dispatch(signInSuccess(json.data));
+      console.log(json.data);
+      dispatch(setCurrentUser(json.data.user));
+
       route("/");
     });
   };
 }
-
-export function signOutUser() {
-  return dispatch => {
-    localStorage.removeItem(JWT_TOKEN);
-    dispatch(signOut());
-  };
-}
-
-export const signOut = () => ({
-  type: SIGN_OUT
-});
 
 export function signIn(credentials) {
   return dispatch => {
@@ -74,4 +96,15 @@ export const signInFailure = errors => ({
 export const signInAuthFailure = errors => ({
   type: SIGN_IN_AUTH_FAILURE,
   payload: { errors }
+});
+
+export function signOutUser() {
+  return dispatch => {
+    localStorage.removeItem(JWT_TOKEN);
+    dispatch(signOutSuccess());
+  };
+}
+
+export const signOutSuccess = () => ({
+  type: SIGN_OUT_SUCCESS
 });
