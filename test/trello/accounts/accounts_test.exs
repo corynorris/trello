@@ -4,7 +4,7 @@ defmodule Trello.AccountsTest do
   alias Trello.Accounts.{User, Users, Auth, Encryption}
 
   @valid_attrs %{
-    email: "test@123.com",
+    email: "accountstest@123.com",
     first_name: "some first_name",
     last_name: "some last_name",
     password: "some password",
@@ -31,7 +31,7 @@ defmodule Trello.AccountsTest do
   describe "auth" do
     test "sign_up/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Users.create(@valid_attrs)
-      assert user.email == "test@123.com"
+      assert user.email == "accountstest@123.com"
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
       assert Encryption.validate_password("some password", user.password)
@@ -43,8 +43,8 @@ defmodule Trello.AccountsTest do
 
     test "sign_in/2 with valid data returns a user" do
       user_fixture()
-      assert {:ok, %User{} = user} = Auth.sign_in(@valid_attrs.email, @valid_attrs.password)
-      assert user.email == "test@123.com"
+      assert {:ok, %User{} = user} = Auth.sign_in(@valid_attrs)
+      assert user.email == "accountstest@123.com"
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
       assert Encryption.validate_password("some password", user.password)
@@ -52,12 +52,13 @@ defmodule Trello.AccountsTest do
 
     test "sign_in/2 with mismatched password returns invalid credentials" do
       user_fixture()
-      assert {:error, :invalid_credentials} = Auth.sign_in("", "")
+
+      assert {:error, :invalid_credentials} =
+               Auth.sign_in(%{email: "bad@email.com", password: "badpassword"})
     end
 
     test "sign_in/2 with invalid data returns invalid credentials" do
-      assert {:error, :invalid_credentials} =
-               Auth.sign_in(@valid_attrs.email, @valid_attrs.password)
+      assert {:error, :invalid_credentials} = Auth.sign_in(@valid_attrs)
     end
   end
 
@@ -66,7 +67,7 @@ defmodule Trello.AccountsTest do
       user = user_fixture()
 
       assert user = Users.get_user!(user.id)
-      assert user.email == "test@123.com"
+      assert user.email == "accountstest@123.com"
       assert user.first_name == "some first_name"
       assert user.last_name == "some last_name"
       assert Encryption.validate_password("some password", user.password)

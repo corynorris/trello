@@ -15,6 +15,8 @@ defmodule Trello.Accounts.User do
     field(:first_name, :string)
     field(:last_name, :string)
 
+    has_many(:owned_boards, Trello.Boards.Board)
+
     timestamps()
   end
 

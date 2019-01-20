@@ -22,6 +22,7 @@ defmodule TrelloWeb.Router do
       post("/sign_up", SignUpController, :create)
       post("/sign_in", SessionController, :create)
       get("/current_user", CurrentUserController, :show)
+      resources("/boards", BoardController, only: [:index, :create])
     end
   end
 

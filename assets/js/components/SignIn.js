@@ -18,9 +18,10 @@ class SignIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onChange(e) {
+  handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.signInRequest(this.state);
@@ -43,7 +44,7 @@ class SignIn extends Component {
           </Avatar>
           <h1>Sign In</h1>
         </div>
-        <div className="card-media">
+        <Card.Media className="card-media">
           <form onSubmit={this.handleSubmit}>
             <div style={{ marginBottom: "2em" }}>
               <TextField
@@ -51,7 +52,7 @@ class SignIn extends Component {
                 name="email"
                 placeholder="Email"
                 dense={true}
-                onChange={this.onChange.bind(this)}
+                onChange={this.handleChange.bind(this)}
                 value={this.state.email}
                 fullwidth={true}
                 valid={errors.email ? false : true}
@@ -63,7 +64,7 @@ class SignIn extends Component {
                 disabled={loading}
                 name="password"
                 placeholder="Password"
-                onChange={this.onChange.bind(this)}
+                onChange={this.handleChange.bind(this)}
                 value={this.state.password}
                 fullwidth={true}
                 valid={errors.password ? false : true}
@@ -79,7 +80,7 @@ class SignIn extends Component {
           <Button style={{ width: "100%", fontSize: "12px" }} href="/sign_up">
             create an account
           </Button>
-        </div>
+        </Card.Media>
       </Card>
     );
   }

@@ -20,7 +20,7 @@ class SignUp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onChange(e) {
+  handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -54,7 +54,7 @@ class SignUp extends Component {
                 name="email"
                 placeholder="Email"
                 dense={true}
-                onChange={this.onChange.bind(this)}
+                onChange={this.handleChange.bind(this)}
                 value={this.state.email}
                 fullwidth={true}
                 valid={errors.email ? false : true}
@@ -66,7 +66,7 @@ class SignUp extends Component {
                 disabled={loading}
                 name="first_name"
                 placeholder="First Name"
-                onChange={this.onChange.bind(this)}
+                onChange={this.handleChange.bind(this)}
                 value={this.state.first_name}
                 fullwidth={true}
                 valid={errors.first_name ? false : true}
@@ -78,7 +78,7 @@ class SignUp extends Component {
                 disabled={loading}
                 name="last_name"
                 placeholder="Last Name"
-                onChange={this.onChange.bind(this)}
+                onChange={this.handleChange.bind(this)}
                 value={this.state.last_name}
                 fullwidth={true}
                 valid={errors.last_name ? false : true}
@@ -90,7 +90,7 @@ class SignUp extends Component {
                 disabled={loading}
                 name="password"
                 placeholder="Password"
-                onChange={this.onChange.bind(this)}
+                onChange={this.handleChange.bind(this)}
                 value={this.state.password}
                 fullwidth={true}
                 valid={errors.password ? false : true}
@@ -102,7 +102,7 @@ class SignUp extends Component {
                 disabled={loading}
                 name="password_confirmation"
                 placeholder="Password Confirmation"
-                onChange={this.onChange.bind(this)}
+                onChange={this.handleChange.bind(this)}
                 value={this.state.password_confirmation}
                 fullwidth={true}
                 valid={errors.password_confirmation ? false : true}

@@ -13,8 +13,11 @@ class Header extends Component {
 
   render(props) {
     return (
-      <div style={{}}>
-        <TopAppBar className="topappbar">
+      <div>
+        <TopAppBar
+          style={{ background: "#5300ca", height: "3em" }}
+          className="topappbar"
+        >
           <TopAppBar.Row>
             <TopAppBar.Section align-start>
               <TopAppBar.Title>Boards</TopAppBar.Title>
@@ -22,8 +25,8 @@ class Header extends Component {
             <TopAppBar.Section align-end shrink-to-fit>
               <Button href="/sign_out" style={{ color: "white" }}>
                 Sign Out
+                <TopAppBar.Icon>exit_to_app</TopAppBar.Icon>
               </Button>
-              {/* <TopAppBar.Icon>settings</TopAppBar.Icon> */}
             </TopAppBar.Section>
           </TopAppBar.Row>
         </TopAppBar>
