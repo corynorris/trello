@@ -13,10 +13,10 @@ class Header extends Component {
 
   render(props) {
     return (
-      <div>
+      <div style={{}}>
         <TopAppBar
-          style={{ background: "#5300ca", height: "3em" }}
-          className="topappbar"
+          style={{ background: "#4F00BB", height: "3em" }}
+          class="mdc-top-app-bar mdc-top-app-bar--fixed"
         >
           <TopAppBar.Row>
             <TopAppBar.Section align-start>

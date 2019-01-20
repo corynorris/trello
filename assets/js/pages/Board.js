@@ -1,9 +1,9 @@
 import { h, render, Component } from "preact";
 import Header from "../components/Header/Header";
-import BoardListContainer from "../containers/BoardListContainer";
+import BoardViewContainer from "../containers/BoardViewContainer";
 
 class Home extends Component {
-  render() {
+  render({ id }) {
     return (
       <div
         style={{
@@ -13,8 +13,8 @@ class Home extends Component {
         }}
       >
         <Header />
-        <div style={{ paddingTop: "4em" }}>
-          <BoardListContainer />
+        <div style={{ color: "white", paddingTop: "4em" }}>
+          <BoardViewContainer id={id} />
         </div>
       </div>
     );

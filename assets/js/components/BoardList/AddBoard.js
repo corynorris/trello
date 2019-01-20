@@ -86,10 +86,12 @@ class AddCard extends Component {
       <div ref={this.setWrapperRef}>
         <Card
           style={{
-            background: "white",
+            background: this.state.visible ? "white" : "rgba(0, 0, 0, 0.2)",
+            color: this.state.visible ? "#444" : "white",
             padding: "1.3em",
             borderRadius: "4px",
-            cursor: "pointer"
+            cursor: "pointer",
+            boxShadow: "none"
           }}
         >
           {this.state.visible ? this._renderAddForm() : "Add a New Board... "}

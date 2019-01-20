@@ -3,7 +3,7 @@ import Card from "preact-material-components/Card";
 import Icon from "preact-material-components/Icon";
 import TextField from "preact-material-components/TextField";
 import Button from "preact-material-components/Button";
-import Avatar from "./Avatar";
+import Avatar from "../Avatar/Avatar";
 import FormField from "preact-material-components/FormField";
 
 import "preact-material-components/TextField/style.css";

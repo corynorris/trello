@@ -1,19 +1,19 @@
 import { h, render, Component } from "preact";
 import { connect } from "preact-redux";
-import { signUp } from "../actions/signup";
+import { fetchBoard } from "../actions/board";
 
-import SignUp from "../components/SignUp/SignUp";
+import BoardView from "../components/BoardView/BoardView";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ...state.signUp
+    ...state.board
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    signUpRequest: userData => {
-      dispatch(signUp(userData));
+    fetchBoard: id => {
+      dispatch(fetchBoard(id));
     }
   };
 };
@@ -21,4 +21,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignUp);
+)(BoardView);

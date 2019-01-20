@@ -1,8 +1,5 @@
-import {
-  SIGN_UP_SUCCESS,
-  SIGN_IN_SUCCESS,
-  SIGN_OUT_SUCCESS
-} from "../actions/session";
+import { SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS } from "../actions/session";
+import { SIGN_UP_SUCCESS } from "../actions/signup";
 
 const initialState = {
   signedIn: false,

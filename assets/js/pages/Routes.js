@@ -5,6 +5,7 @@ import { Provider } from "preact-redux";
 import SignInPage from "./SignInPage";
 import SignUpPage from "./SignUpPage";
 import Home from "./Home";
+import Board from "./Board";
 import { getCurrentUser, signOutUser } from "../actions/session";
 import { JWT_TOKEN } from "../constants";
 
@@ -16,15 +17,20 @@ class Routes extends Component {
     const { session } = store.getState();
     const { currentUser } = session;
 
-    if (e.url === "/sign_out") {
+    const isAuthenticated = currentUser != null;
+    const canAuthenticate = localStorage.getItem(JWT_TOKEN) != null;
+
+    if (!isAuthenticated && canAuthenticate) {
+      dispatch(getCurrentUser());
+    } else if (
+      !isAuthenticated &&
+      e.url !== "/sign_in" &&
+      e.url !== "/sign_up"
+    ) {
+      route("/sign_in");
+    } else if (e.url === "/sign_out") {
       dispatch(signOutUser());
       route("/sign_in", true);
-    } else if (!currentUser && localStorage.getItem(JWT_TOKEN)) {
-      // They have a token so we can sign them in
-      dispatch(getCurrentUser());
-    } else if (!localStorage.getItem(JWT_TOKEN)) {
-      // No token, and not signed in
-      if (e.url !== "/sign_in" && e.url !== "/sign_up") route("/sign_in");
     }
   };
 
@@ -33,6 +39,7 @@ class Routes extends Component {
       <Provider store={store}>
         <Router onChange={this.handleRoute}>
           <Home path="/" />
+          <Board path="/board/:id" />
           <SignInPage path="/sign_in" />
           <SignUpPage path="/sign_up" />
         </Router>

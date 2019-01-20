@@ -47,7 +47,6 @@ export function getCurrentUser() {
     return axios.get("/api/v1/current_user", { headers: header }).then(json => {
       dispatch(signInSuccess(json.data));
       dispatch(setCurrentUser(json.data.user));
-      route("/");
     });
   };
 }
