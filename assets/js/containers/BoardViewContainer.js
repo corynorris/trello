@@ -1,19 +1,27 @@
 import { h, render, Component } from "preact";
 import { connect } from "preact-redux";
-import { fetchBoard } from "../actions/board";
+import { connectToChannel } from "../actions/currentBoard";
+import { createList, updateList } from "../actions/lists";
 
 import BoardView from "../components/BoardView/BoardView";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ...state.board
+    ...state.currentBoard,
+    session: state.session
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
-    fetchBoard: id => {
-      dispatch(fetchBoard(id));
+    connectToChannel: (socket, id) => {
+      dispatch(connectToChannel(socket, id));
+    },
+    createList: (channel, name) => {
+      dispatch(createList(channel, name));
+    },
+    updateList: (channel, name) => {
+      dispatch(updateList(channel, name));
     }
   };
 };

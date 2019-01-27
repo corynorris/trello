@@ -1,5 +1,6 @@
 import axios from "axios";
 import { JWT_TOKEN } from "../constants";
+import { route } from "preact-router";
 
 export const CREATE_BOARD_BEGIN = "CREATE_BOARD_BEGIN";
 export const CREATE_BOARD_SUCCESS = "CREATE_BOARD_SUCCESS";
@@ -14,10 +15,7 @@ export function fetchBoards() {
       Authorization: `Bearer ${localStorage.getItem(JWT_TOKEN)}`
     };
 
-    console.log("fetching");
     return axios.get("/api/v1/boards", { headers: header }).then(json => {
-      console.log("success");
-      console.log(json.data);
       dispatch(fetchBoardsSuccess(json.data));
     });
   };
@@ -45,14 +43,11 @@ export function createBoard(boardData) {
       Authorization: `Bearer ${localStorage.getItem(JWT_TOKEN)}`
     };
 
-    console.log(header);
-    console.log(boardData);
-
     return axios
       .post("/api/v1/boards", { board: boardData }, { headers: header })
       .then(json => {
-        console.log(json.data);
         dispatch(createBoardSuccess(json.data));
+        route(`/board/${json.data.board.id}`);
       });
   };
 }

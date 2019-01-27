@@ -4,12 +4,12 @@ import signIn from "./signIn";
 import signUp from "./signUp";
 import session from "./session";
 import boards from "./boards";
-import board from "./board";
+import currentBoard from "./currentBoard";
 
 export default combineReducers({
   signIn,
   signUp,
   session,
   boards,
-  board
+  currentBoard
 });

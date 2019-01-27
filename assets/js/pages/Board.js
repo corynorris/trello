@@ -13,7 +13,13 @@ class Home extends Component {
         }}
       >
         <Header />
-        <div style={{ color: "white", paddingTop: "4em" }}>
+        <div
+          style={{
+            color: "white",
+            paddingTop: "49px",
+            height: "100%"
+          }}
+        >
           <BoardViewContainer id={id} />
         </div>
       </div>

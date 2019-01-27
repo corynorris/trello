@@ -3,7 +3,7 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
   SIGN_IN_AUTH_FAILURE
-} from "../actions/session";
+} from "../actions/signin";
 
 const initialState = {
   loading: false,

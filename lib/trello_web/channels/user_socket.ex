@@ -5,7 +5,7 @@ defmodule TrelloWeb.UserSocket do
   # channel "room:*", TrelloWeb.RoomChannel
   # Channels
   channel("users:*", TrelloWeb.UserChannel)
-  # channel("boards:*", TrelloWeb.BoardChannel)
+  channel("boards:*", TrelloWeb.BoardChannel)
 
   # def connect(%{"token" => token}, socket, _connect_info) do
   #   case Guardian.Phoenix.Socket.authenticate(socket, TrelloWeb.Guardian, token) do

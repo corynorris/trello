@@ -15,7 +15,6 @@ class BoardCard extends Component {
         onClick={this.handleClick.bind(this)}
         style={{
           background: "white",
-          // background: "rgba(255, 255, 255, 0.95)",
           padding: "1.3em",
           borderRadius: "4px",
           cursor: "pointer",

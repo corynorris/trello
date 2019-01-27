@@ -9,11 +9,16 @@ class Home extends Component {
         style={{
           width: "100%",
           height: "100%",
+
           background: "#6200ee"
         }}
       >
         <Header />
-        <div style={{ paddingTop: "4em" }}>
+        <div
+          style={{
+            paddingTop: "49px"
+          }}
+        >
           <BoardListContainer />
         </div>
       </div>

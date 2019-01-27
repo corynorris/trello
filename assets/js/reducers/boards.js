@@ -6,7 +6,7 @@ import {
 } from "../actions/boards";
 
 const initialState = {
-  loading: false,
+  loading: true,
   boards: [],
   errors: {}
 };
@@ -32,12 +32,10 @@ const boards = (state = initialState, action) => {
         errors: action.payload.errors || {}
       };
     case CREATE_BOARD_SUCCESS:
-      console.log("state");
-      console.log(action.payload);
       return {
         ...state,
         boards: [...state.boards, action.payload.board],
-        loading: true,
+        loading: false,
         errors: {}
       };
     default:

@@ -6,12 +6,12 @@ import "preact-material-components/Card/style.css";
 import "preact-material-components/Button/style.css";
 import "preact-material-components/TextField/style.css";
 
-class AddCard extends Component {
+class AddList extends Component {
   constructor() {
     super();
     this.state = {
       visible: false,
-      board: {}
+      list: {}
     };
     this._renderAddForm = this._renderAddForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,9 +39,9 @@ class AddCard extends Component {
     }
   }
 
-  setBoardName(e) {
+  setListName(e) {
     this.setState({
-      board: {
+      list: {
         name: e.target.value
       }
     });
@@ -49,8 +49,8 @@ class AddCard extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createBoard(this.state.board);
-    this.state = { visible: false, board: {} };
+    this.props.createList(this.props.channel, this.state.list);
+    this.state = { visible: false, list: {} };
   }
 
   _renderAddForm() {
@@ -58,7 +58,7 @@ class AddCard extends Component {
       <div>
         <div class="card-header">
           <h3 class=" mdc-typography--title" style={{ margin: "0em" }}>
-            Add Card
+            Add List
           </h3>
         </div>
         <Card.Media className="card-media">
@@ -69,11 +69,11 @@ class AddCard extends Component {
                 fullwidth={true}
                 name="name"
                 placeholder="Name"
-                onInput={this.setBoardName.bind(this)}
-                value={this.state.board.name}
+                onInput={this.setListName.bind(this)}
+                value={this.state.list.name}
               />
             </div>
-            <Button outlined>Create Board</Button>
+            <Button outlined>Create List</Button>
           </form>
         </Card.Media>
       </div>
@@ -93,11 +93,11 @@ class AddCard extends Component {
             boxShadow: "none"
           }}
         >
-          {this.state.visible ? this._renderAddForm() : "Add a New Board... "}
+          {this.state.visible ? this._renderAddForm() : "Add a New List... "}
         </Card>
       </div>
     );
   }
 }
 
-export default AddCard;
+export default AddList;

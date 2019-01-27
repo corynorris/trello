@@ -7,6 +7,8 @@ defmodule Trello.Boards do
   alias Trello.Repo
 
   alias Trello.Boards.Board
+  alias Trello.Boards.List
+  alias Trello.Boards.Card
 
   @doc """
   Returns the list of boards.
@@ -35,10 +37,108 @@ defmodule Trello.Boards do
       {:error, %Ecto.Changeset{}}
 
   """
+  def get_user_board(current_user, board_id) do
+    current_user
+    |> Ecto.assoc(:owned_boards)
+    |> Repo.get!(board_id)
+    |> Repo.preload([:lists])
+  end
+
+  @doc """
+  Creates a board.
+
+  ## Examples
+
+      iex> create_user_board(current_user, %{field: value})
+      {:ok, %Board{}}
+
+      iex> create_user_board(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
   def create_user_board(current_user, attrs \\ %{}) do
     current_user
     |> Ecto.build_assoc(:owned_boards)
     |> Board.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+    Gets a list by ID.
+  """
+
+  def get_list!(id), do: Repo.get!(List, id)
+
+  @doc """
+  Creates a list.
+
+  ## Examples
+
+      iex> create_list(board, %{field: value})
+      {:ok, %List{}}
+
+      iex> create_list(board, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_list(board, attrs \\ %{}) do
+    board
+    |> Ecto.build_assoc(:lists)
+    |> List.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a list.
+
+  ## Examples
+
+      iex> update_list(list, %{field: new_value})
+      {:ok, %List{}}
+
+      iex> update_list(list, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_list(%List{} = list, attrs) do
+    list
+    |> List.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Creates a card.
+
+  ## Examples
+
+      iex> create_card_for_list(list, %{field: value})
+      {:ok, %Card{}}
+
+      iex> create_card(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_card_for_list(attrs \\ %{}) do
+    %Card{}
+    |> Card.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a card.
+
+  ## Examples
+
+      iex> update_card(card, %{field: new_value})
+      {:ok, %Card{}}
+
+      iex> update_card(card, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_card(%Card{} = card, attrs) do
+    card
+    |> Card.changeset(attrs)
+    |> Repo.update()
   end
 end

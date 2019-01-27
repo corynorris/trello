@@ -6,7 +6,11 @@ import SignInPage from "./SignInPage";
 import SignUpPage from "./SignUpPage";
 import Home from "./Home";
 import Board from "./Board";
-import { getCurrentUser, signOutUser } from "../actions/session";
+import {
+  getCurrentUser,
+  setCurrentUser,
+  signOutUser
+} from "../actions/session";
 import { JWT_TOKEN } from "../constants";
 
 class Routes extends Component {
@@ -20,16 +24,20 @@ class Routes extends Component {
     const isAuthenticated = currentUser != null;
     const canAuthenticate = localStorage.getItem(JWT_TOKEN) != null;
 
-    if (!isAuthenticated && canAuthenticate) {
-      dispatch(getCurrentUser());
+    if (e.url === "/sign_out") {
+      dispatch(signOutUser());
+      route("/sign_in", true);
+    } else if (!isAuthenticated && canAuthenticate) {
+      if (currentUser) {
+        dispatch(setCurrentUser(currentUser));
+      } else {
+        dispatch(getCurrentUser());
+      }
     } else if (
       !isAuthenticated &&
       e.url !== "/sign_in" &&
       e.url !== "/sign_up"
     ) {
-      route("/sign_in");
-    } else if (e.url === "/sign_out") {
-      dispatch(signOutUser());
       route("/sign_in", true);
     }
   };
