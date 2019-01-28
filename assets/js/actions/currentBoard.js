@@ -7,6 +7,8 @@ export const FETCH_CURRENT_BOARD_SUCCESS = "FETCH_CURRENT_BOARD_SUCCESS";
 export const FETCH_CURRENT_BOARD_FAILURE = "FETCH_CURRENT_BOARD_FAILURE";
 export const CREATE_LIST_SUCCESS = "CREATE_LIST_SUCCESS";
 export const UPDATE_LIST_SUCCESS = "UPDATE_LIST_SUCCESS";
+export const CREATE_CARD_SUCCESS = "CREATE_CARD_SUCCESS";
+export const UPDATE_CARD_SUCCESS = "UPDATE_CARD_SUCCESS";
 
 export function connectToChannel(socket, id) {
   return dispatch => {
@@ -14,18 +16,23 @@ export function connectToChannel(socket, id) {
     dispatch(fetchCurrentBoardBegin());
 
     channel.join().receive("ok", response => {
-      console.log(response);
       dispatch(fetchCurrentBoardSuccess(response.board));
     });
 
     channel.on("list:created", list => {
-      console.log(list);
       dispatch(createListSuccess(list));
     });
 
     channel.on("list:updated", list => {
-      console.log(list);
       dispatch(updateListSuccess(list));
+    });
+
+    channel.on("card:created", card => {
+      dispatch(createCardSuccess(card));
+    });
+
+    channel.on("card:updated", card => {
+      dispatch(updateCardSuccess(card));
     });
 
     dispatch(boardChannelJoined({ boardChannel: channel }));
@@ -66,5 +73,19 @@ export const updateListSuccess = list => ({
   type: UPDATE_LIST_SUCCESS,
   payload: {
     ...list
+  }
+});
+
+export const createCardSuccess = card => ({
+  type: CREATE_CARD_SUCCESS,
+  payload: {
+    ...card
+  }
+});
+
+export const updateCardSuccess = card => ({
+  type: UPDATE_CARD_SUCCESS,
+  payload: {
+    ...card
   }
 });

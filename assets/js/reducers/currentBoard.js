@@ -4,6 +4,8 @@ import {
   FETCH_CURRENT_BOARD_FAILURE,
   CREATE_LIST_SUCCESS,
   UPDATE_LIST_SUCCESS,
+  CREATE_CARD_SUCCESS,
+  UPDATE_CARD_SUCCESS,
   BOARD_CHANNEL_JOINED
 } from "../actions/currentBoard";
 
@@ -59,11 +61,55 @@ const currentBoard = (state = initialState, action) => {
         loading: false,
         currentBoard: {
           ...state.currentBoard,
-          lists: lists.map(item => {
-            if (item.id !== action.payload.list.id) {
-              return item;
+          lists: lists.map(list => {
+            if (list.id !== action.payload.list.id) {
+              return list;
             } else {
               return action.payload.list;
+            }
+          })
+        },
+        errors: {}
+      };
+    case CREATE_CARD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentBoard: {
+          ...state.currentBoard,
+          lists: lists.map(list => {
+            if (list.id !== action.payload.card.list_id) {
+              return list;
+            } else {
+              return {
+                ...list,
+                cards: [...list.cards, action.payload.card]
+              };
+            }
+          })
+        },
+        errors: {}
+      };
+    case UPDATE_CARD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentBoard: {
+          ...state.currentBoard,
+          lists: lists.map(list => {
+            if (list.id !== action.payload.card.list_id) {
+              return list;
+            } else {
+              return {
+                ...list,
+                cards: list.cards.map(card => {
+                  if (card.id !== action.payload.card.id) {
+                    return card;
+                  } else {
+                    return action.payload.card;
+                  }
+                })
+              };
             }
           })
         },

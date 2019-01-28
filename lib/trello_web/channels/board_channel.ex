@@ -14,6 +14,8 @@ defmodule TrelloWeb.BoardChannel do
     |> Boards.create_list(list_params)
     |> case do
       {:ok, list} ->
+        list = Boards.get_list!(list.id)
+
         broadcast!(socket, "list:created", %{list: list})
         {:noreply, socket}
 
@@ -25,7 +27,6 @@ defmodule TrelloWeb.BoardChannel do
   def handle_in("lists:update", %{"list" => list_params}, socket) do
     list_params["id"]
     |> Boards.get_list!()
-    |> IO.inspect()
     |> Boards.update_list(list_params)
     |> case do
       {:ok, list} ->
@@ -34,6 +35,33 @@ defmodule TrelloWeb.BoardChannel do
 
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error creating list"}}, socket}
+    end
+  end
+
+  def handle_in("cards:create", %{"card" => card_params}, socket) do
+    socket.assigns.board
+    |> Boards.create_card(card_params)
+    |> case do
+      {:ok, card} ->
+        broadcast!(socket, "card:created", %{card: card})
+        {:noreply, socket}
+
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error creating card"}}, socket}
+    end
+  end
+
+  def handle_in("cards:update", %{"card" => card_params}, socket) do
+    card_params["id"]
+    |> Boards.get_card!()
+    |> Boards.update_card(card_params)
+    |> case do
+      {:ok, card} ->
+        broadcast!(socket, "card:updated", %{card: card})
+        {:noreply, socket}
+
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error creating card"}}, socket}
     end
   end
 end

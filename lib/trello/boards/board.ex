@@ -10,6 +10,7 @@ defmodule Trello.Boards.Board do
     field(:user_id, :id)
 
     has_many(:lists, Trello.Boards.List)
+    has_many(:cards, through: [:lists, :cards])
 
     timestamps()
   end

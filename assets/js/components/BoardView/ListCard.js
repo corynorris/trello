@@ -12,7 +12,8 @@ class ListCard extends Component {
     this.state = {
       isEditingTitle: false,
       isEditingCard: false,
-      name: this.props.list.name || ""
+      name: this.props.list.name || "",
+      card: ""
     };
 
     this.setHeaderRef = this.setHeaderRef.bind(this);
@@ -24,6 +25,8 @@ class ListCard extends Component {
     this._renderAddCard = this._renderAddCard.bind(this);
     this.handleHeaderClick = this.handleHeaderClick.bind(this);
     this.handleHeaderSubmit = this.handleHeaderSubmit.bind(this);
+    this.handleAddCardClick = this.handleAddCardClick.bind(this);
+    this.handleAddCardSubmit = this.handleAddCardSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +61,12 @@ class ListCard extends Component {
     });
   }
 
+  setCardValue(e) {
+    this.setState({
+      card: e.target.value
+    });
+  }
+
   handleHeaderSubmit(e) {
     e.preventDefault();
     this.props.updateList(this.props.channel, {
@@ -73,7 +82,17 @@ class ListCard extends Component {
     });
   }
 
-  handleAddCard(e) {
+  handleAddCardSubmit(e) {
+    e.preventDefault();
+    this.props.createCard(this.props.channel, {
+      name: this.state.card,
+      list_id: this.props.list.id
+    });
+
+    this.setState({ isEditingCard: false });
+  }
+
+  handleAddCardClick(e) {
     this.setState({
       isEditingCard: true
     });
@@ -131,73 +150,76 @@ class ListCard extends Component {
   }
 
   _renderCards() {
-    return (
-      <div>
-        <div
-          style={{
-            width: "100%",
-            padding: "1em",
-            background: "rgba(0, 0, 0, 0.1)",
-            marginBottom: "0.5em"
-          }}
-        >
-          Test
-        </div>
-        <div
-          style={{
-            width: "100%",
-            padding: "1em",
-            background: "rgba(0, 0, 0, 0.1)",
-            marginBottom: "0.5em"
-          }}
-        >
-          Test
-        </div>
-        <div
-          style={{
-            width: "100%",
-            padding: "1em",
-            background: "rgba(0, 0, 0, 0.1)",
-            marginBottom: "0.5em"
-          }}
-        >
-          Test
-        </div>
-        <div
-          style={{
-            width: "100%",
-            padding: "1em",
-            background: "rgba(0, 0, 0, 0.1)",
-            marginBottom: "0.5em"
-          }}
-        >
-          Test
-        </div>
+    const cards = this.props.list.cards || [];
+    const carList = cards.map(card => (
+      <div
+        id={card.id}
+        style={{
+          width: "100%",
+          // display: isDragging ? "block" : "none",
+          padding: "1em",
+          background: "rgba(0, 0, 0, 0.1)",
+          marginBottom: "0.5em"
+        }}
+      >
+        {card.name}
       </div>
-    );
+    ));
+
+    return <div>{carList}</div>;
   }
 
   _renderAddCard() {
-    return (
-      <form ref={this.setAddCardRef}>
-        <div style={{ marginBottom: "1em" }}>
-          <TextField
-            type="text"
-            className="mdc-typography--title"
-            textarea={true}
-            name="name"
-            onInput={this.setListName.bind(this)}
-            value={this.state.name}
-          />
+    if (this.state.isEditingCard) {
+      return (
+        <div ref={this.setAddCardRef}>
+          <form onSubmit={this.handleAddCardSubmit}>
+            <div style={{ marginBottom: "1em" }}>
+              <TextField
+                type="text"
+                className="mdc-typography--title"
+                textarea={true}
+                name="card"
+                onInput={this.setCardValue.bind(this)}
+                value={this.state.card}
+              />
+            </div>
+            <Button>Add Card</Button>
+          </form>
         </div>
-        <Button raised>Add Card</Button>
-      </form>
-    );
+      );
+    } else {
+      return (
+        <div
+          ref={this.setAddCardRef}
+          onClick={this.handleAddCardClick}
+          style={{
+            width: "100%",
+            padding: "1em",
+            background: "rgba(0, 0, 0, 0.1)",
+            marginBottom: "0.5em"
+          }}
+        >
+          Add Card...
+        </div>
+      );
+    }
   }
 
-  render({ name }) {
+  render({
+    id,
+    connectDragSource,
+    connectDropTarget,
+    connectCardDropTarget,
+    isDragging,
+    name
+  }) {
+    const styles = {
+      display: isDragging ? "none" : "block"
+    };
+
     return (
-      <div onClick={this.handleCardClick}>
+      <div onClick={this.handleCardClick} style={styles}>
         <Card
           style={{
             background: "white",

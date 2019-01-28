@@ -42,6 +42,7 @@ defmodule Trello.Boards do
     |> Ecto.assoc(:owned_boards)
     |> Repo.get!(board_id)
     |> Repo.preload([:lists])
+    |> Repo.preload([:cards])
   end
 
   @doc """
@@ -67,7 +68,7 @@ defmodule Trello.Boards do
     Gets a list by ID.
   """
 
-  def get_list!(id), do: Repo.get!(List, id)
+  def get_list!(id), do: Repo.get!(List, id) |> Repo.preload(:cards)
 
   @doc """
   Creates a list.
@@ -111,15 +112,18 @@ defmodule Trello.Boards do
 
   ## Examples
 
-      iex> create_card_for_list(list, %{field: value})
+      iex> create_card(list, %{field: value})
       {:ok, %Card{}}
 
       iex> create_card(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_card_for_list(attrs \\ %{}) do
-    %Card{}
+  def create_card(board, attrs \\ %{}) do
+    board
+    |> Ecto.assoc(:lists)
+    |> Repo.get!(attrs["list_id"])
+    |> Ecto.build_assoc(:cards)
     |> Card.changeset(attrs)
     |> Repo.insert()
   end

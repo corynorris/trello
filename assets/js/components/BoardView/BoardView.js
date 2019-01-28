@@ -37,6 +37,8 @@ class BoardView extends Component {
       >
         <ListCard
           updateList={this.props.updateList}
+          createCard={this.props.createCard}
+          updateCard={this.props.updateCard}
           channel={this.props.boardChannel}
           list={list}
         />

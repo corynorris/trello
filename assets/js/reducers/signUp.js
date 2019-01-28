@@ -20,7 +20,8 @@ const signUp = (state = initialState, action) => {
     case SIGN_UP_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
+        errors: {}
       };
     case SIGN_UP_FAILURE:
       return {

@@ -4,11 +4,14 @@ defmodule Trello.Boards.List do
   alias Trello.Boards.Board
 
   @required_fields ~w(name board_id)a
-  @derive {Jason.Encoder, only: [:id, :name]}
+  @derive {Jason.Encoder, only: [:id, :name, :position, :cards]}
 
   schema "lists" do
     field(:name, :string)
+    field(:position, :integer)
+
     belongs_to(:board, Board)
+    has_many(:cards, Trello.Boards.Card)
 
     timestamps()
   end

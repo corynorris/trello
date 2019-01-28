@@ -1,5 +1,6 @@
 import axios from "axios";
 import { route } from "preact-router";
+import { JWT_TOKEN } from "../constants";
 
 export const SIGN_UP_BEGIN = "SIGN_UP_BEGIN";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
@@ -11,6 +12,7 @@ export function signUp(userData) {
     return axios
       .post("/api/v1/sign_up", { user: userData })
       .then(json => {
+        localStorage.setItem(JWT_TOKEN, json.data.token);
         dispatch(signUpSuccess(json.data));
         route("/");
       })
