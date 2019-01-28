@@ -12,6 +12,7 @@ class ListCard extends Component {
     this.state = {
       isEditingTitle: false,
       isEditingCard: false,
+      isAddingCard: false,
       name: this.props.list.name || "",
       card: ""
     };
@@ -25,6 +26,7 @@ class ListCard extends Component {
     this._renderAddCard = this._renderAddCard.bind(this);
     this.handleHeaderClick = this.handleHeaderClick.bind(this);
     this.handleHeaderSubmit = this.handleHeaderSubmit.bind(this);
+    this.handleCardClick = this.handleCardClick.bind(this);
     this.handleAddCardClick = this.handleAddCardClick.bind(this);
     this.handleAddCardSubmit = this.handleAddCardSubmit.bind(this);
   }
@@ -51,6 +53,10 @@ class ListCard extends Component {
     }
 
     if (this.addCardRef && !this.addCardRef.contains(event.target)) {
+      this.setState({ isAddingCard: false });
+    }
+
+    if (this.editingCard && !this.addCardRef.contains(event.target)) {
       this.setState({ isEditingCard: false });
     }
   }
@@ -89,10 +95,16 @@ class ListCard extends Component {
       list_id: this.props.list.id
     });
 
-    this.setState({ isEditingCard: false });
+    this.setState({ isAddingCard: false, card: "" });
   }
 
   handleAddCardClick(e) {
+    this.setState({
+      isAddingCard: true
+    });
+  }
+
+  handleCardClick(e) {
     this.setState({
       isEditingCard: true
     });
@@ -154,9 +166,9 @@ class ListCard extends Component {
     const carList = cards.map(card => (
       <div
         id={card.id}
+        onClick={this.handleCardClick}
         style={{
           width: "100%",
-          // display: isDragging ? "block" : "none",
           padding: "1em",
           background: "rgba(0, 0, 0, 0.1)",
           marginBottom: "0.5em"
@@ -170,7 +182,7 @@ class ListCard extends Component {
   }
 
   _renderAddCard() {
-    if (this.state.isEditingCard) {
+    if (this.state.isAddingCard) {
       return (
         <div ref={this.setAddCardRef}>
           <form onSubmit={this.handleAddCardSubmit}>
@@ -206,20 +218,9 @@ class ListCard extends Component {
     }
   }
 
-  render({
-    id,
-    connectDragSource,
-    connectDropTarget,
-    connectCardDropTarget,
-    isDragging,
-    name
-  }) {
-    const styles = {
-      display: isDragging ? "none" : "block"
-    };
-
+  render() {
     return (
-      <div onClick={this.handleCardClick} style={styles}>
+      <div onClick={this.handleCardClick}>
         <Card
           style={{
             background: "white",
