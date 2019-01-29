@@ -20,7 +20,11 @@ class Header extends Component {
         >
           <TopAppBar.Row>
             <TopAppBar.Section align-start>
-              <TopAppBar.Title>Boards</TopAppBar.Title>
+              <TopAppBar.Title
+                style={{ paddingLeft: "0.6em", paddingRight: "0.6em" }}
+              >
+                Boards
+              </TopAppBar.Title>
             </TopAppBar.Section>
             <TopAppBar.Section align-end shrink-to-fit>
               <Button href="/sign_out" style={{ color: "white" }}>

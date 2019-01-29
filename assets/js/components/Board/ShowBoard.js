@@ -4,12 +4,12 @@ import Card from "preact-material-components/Card";
 import "preact-material-components/Card/style.css";
 import "preact-material-components/Button/style.css";
 
-class BoardCard extends Component {
+class ShowBoard extends Component {
   handleClick() {
     route(`/board/${this.props.id}`);
   }
 
-  render({ id, name }) {
+  render({ name }) {
     return (
       <Card
         onClick={this.handleClick.bind(this)}
@@ -27,4 +27,4 @@ class BoardCard extends Component {
   }
 }
 
-export default BoardCard;
+export default ShowBoard;

@@ -2,7 +2,7 @@ import { h, render, Component } from "preact";
 import { connect } from "preact-redux";
 import { createBoard, fetchBoards } from "../actions/boards";
 
-import BoardList from "../components/BoardList/BoardList";
+import BoardListView from "../components/Views/BoardListView";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -24,4 +24,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(BoardList);
+)(BoardListView);

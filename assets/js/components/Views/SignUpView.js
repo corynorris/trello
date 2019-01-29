@@ -4,14 +4,16 @@ import Icon from "preact-material-components/Icon";
 import TextField from "preact-material-components/TextField";
 import Button from "preact-material-components/Button";
 import Avatar from "../Avatar/Avatar";
+import FormField from "preact-material-components/FormField";
 
 import "preact-material-components/TextField/style.css";
 import "preact-material-components/Button/style.css";
 import "preact-material-components/Theme/style.css";
 import "preact-material-components/Card/style.css";
 import "preact-material-components/Button/style.css";
+import "preact-material-components/FormField/style.css";
 
-class SignIn extends Component {
+class SignUpView extends Component {
   constructor() {
     super();
     this.state = {};
@@ -24,7 +26,7 @@ class SignIn extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.signInRequest(this.state);
+    this.props.signUpRequest(this.state);
   }
 
   render({ loading, errors }) {
@@ -40,12 +42,12 @@ class SignIn extends Component {
           }}
         >
           <Avatar>
-            <Icon style={{ color: "white" }}>lock</Icon>
+            <Icon style={{ color: "white" }}>person_add</Icon>
           </Avatar>
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
         </div>
-        <Card.Media className="card-media">
-          <form onSubmit={this.handleSubmit}>
+        <div className="card-media">
+          <form onSubmit={this.handleSubmit} style="error">
             <div style={{ marginBottom: "2em" }}>
               <TextField
                 disabled={loading}
@@ -62,6 +64,30 @@ class SignIn extends Component {
               />
               <TextField
                 disabled={loading}
+                name="first_name"
+                placeholder="First Name"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.first_name}
+                fullwidth={true}
+                valid={errors.first_name ? false : true}
+                helperText={errors.first_name}
+                helperTextValidationMsg={true}
+                type="text"
+              />
+              <TextField
+                disabled={loading}
+                name="last_name"
+                placeholder="Last Name"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.last_name}
+                fullwidth={true}
+                valid={errors.last_name ? false : true}
+                helperText={errors.last_name}
+                helperTextValidationMsg={true}
+                type="text"
+              />
+              <TextField
+                disabled={loading}
                 name="password"
                 placeholder="Password"
                 onChange={this.handleChange.bind(this)}
@@ -72,18 +98,30 @@ class SignIn extends Component {
                 helperTextValidationMsg={true}
                 type="password"
               />
+              <TextField
+                disabled={loading}
+                name="password_confirmation"
+                placeholder="Password Confirmation"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.password_confirmation}
+                fullwidth={true}
+                valid={errors.password_confirmation ? false : true}
+                helperText={errors.password_confirmation}
+                helperTextValidationMsg={true}
+                type="password"
+              />
             </div>
-            <Button style={{ width: "100%" }} raised>
-              Sign In
+            <Button disabled={loading} style={{ width: "100%" }} raised>
+              Sign Up
             </Button>
           </form>
-          <Button style={{ width: "100%", fontSize: "12px" }} href="/sign_up">
-            create an account
+          <Button style={{ width: "100%", fontSize: "12px" }} href="/sign_in">
+            I already have an account
           </Button>
-        </Card.Media>
+        </div>
       </Card>
     );
   }
 }
 
-export default SignIn;
+export default SignUpView;

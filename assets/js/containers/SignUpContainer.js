@@ -2,7 +2,7 @@ import { h, render, Component } from "preact";
 import { connect } from "preact-redux";
 import { signUp } from "../actions/signup";
 
-import SignUp from "../components/SignUp/SignUp";
+import SignUpView from "../components/Views/SignUpView";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -21,4 +21,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignUp);
+)(SignUpView);

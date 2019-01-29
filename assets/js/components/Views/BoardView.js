@@ -1,11 +1,11 @@
 import { h, render, Component } from "preact";
-import LayoutGrid from "preact-material-components/LayoutGrid";
 import Title from "../Headings/Title";
-import AddList from "./AddList";
-import "preact-material-components/LayoutGrid/style.css";
+import AddList from "../List/AddList";
+import ShowList from "../List/ShowList";
 import LinearProgress from "preact-material-components/LinearProgress";
+
+import "preact-material-components/LayoutGrid/style.css";
 import "preact-material-components/LinearProgress/style.css";
-import ListCard from "./ListCard";
 
 class BoardView extends Component {
   componentDidMount() {
@@ -35,7 +35,7 @@ class BoardView extends Component {
         style={{ width: "100px", flex: "0 0 17em", margin: "0 0.66667em 0 0" }}
         key={list.id}
       >
-        <ListCard
+        <ShowList
           updateList={this.props.updateList}
           createCard={this.props.createCard}
           updateCard={this.props.updateCard}
@@ -54,7 +54,7 @@ class BoardView extends Component {
       <div
         style={{
           // height: "calc(100% - 1em)",
-          padding: "1em",
+          padding: "1em 1.7em",
           height: "100%"
         }}
       >

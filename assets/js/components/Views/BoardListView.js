@@ -1,12 +1,13 @@
 import { h, render, Component } from "preact";
 import LayoutGrid from "preact-material-components/LayoutGrid";
-import AddBoard from "./AddBoard";
+import AddBoard from "../Board/AddBoard";
 import Title from "../Headings/Title";
-import BoardCard from "./BoardCard";
+import BoardCard from "../Board/ShowBoard";
 import "preact-material-components/LayoutGrid/style.css";
 import LinearProgress from "preact-material-components/LinearProgress";
 import "preact-material-components/LinearProgress/style.css";
-class BoardList extends Component {
+
+class BoardListView extends Component {
   componentDidMount() {
     this.props.fetchBoards();
   }
@@ -23,11 +24,11 @@ class BoardList extends Component {
     }
 
     return (
-      <div>
-        <div style={{ margin: "1em 1em 0 1em " }}>
+      <div style={{ padding: "1em 1.7em" }}>
+        <div>
           <Title>My Boards</Title>
         </div>
-        <LayoutGrid>
+        <LayoutGrid style={{ padding: "1em 0em" }}>
           <LayoutGrid.Inner>
             {boardGrid}
             <LayoutGrid.Cell cols="3">
@@ -40,4 +41,4 @@ class BoardList extends Component {
   }
 }
 
-export default BoardList;
+export default BoardListView;
