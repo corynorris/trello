@@ -14,6 +14,8 @@ class BoardView extends Component {
   constructor(props) {
     super(props);
     this._handleDropList = this._handleDropList.bind(this);
+    this._handleDropCard = this._handleDropCard.bind(this);
+    this._handleDropCardWhenEmpty = this._handleDropCardWhenEmpty.bind(this);
     this._handleCreateList = this._handleCreateList.bind(this);
   }
   componentDidMount() {
@@ -37,6 +39,72 @@ class BoardView extends Component {
     this.props.connectToChannel(nextProps.session.socket, this.props.id);
   }
 
+  _handleDropCardWhenEmpty(card) {
+    const { lists } = this.props.currentBoard;
+    const { boardChannel } = this.props;
+
+    console.log("updating new list with card: ", card);
+    this.props.updateCard(boardChannel, card);
+  }
+
+  _handleDropCard({ source, target }) {
+    const { lists } = this.props.currentBoard;
+    const { boardChannel } = this.props;
+
+    const sourceListIndex = lists.findIndex(list => {
+      return list.id === source.list_id;
+    });
+    const sourceList = lists[sourceListIndex];
+    const sourceCardIndex = sourceList.cards.findIndex(card => {
+      return card.id === source.id;
+    });
+    const sourceCard = sourceList.cards[sourceCardIndex];
+
+    const targetListIndex = lists.findIndex(list => {
+      return list.id === target.list_id;
+    });
+    let targetList = lists[targetListIndex];
+    const targetCardIndex = targetList.cards.findIndex(card => {
+      return card.id === target.id;
+    });
+    const targetCard = targetList.cards[targetCardIndex];
+    const previousTargetCard = sourceList.cards[sourceCardIndex + 1];
+
+    if (previousTargetCard === targetCard) {
+      return false;
+    }
+
+    if (targetListIndex == sourceListIndex) {
+      const targetIndex =
+        sourceCardIndex > targetCardIndex
+          ? targetCardIndex
+          : targetCardIndex - 1;
+
+      sourceList.cards.splice(sourceCardIndex, 1);
+      targetList.cards.splice(targetIndex, 0, sourceCard);
+    } else {
+      const targetIndex = targetCardIndex;
+      sourceList.cards.splice(sourceCardIndex, 1);
+      targetList.cards.splice(targetIndex, 0, sourceCard);
+    }
+
+    // console.log(sourceList.cards);
+    // this.props.updateCard(boardChannel, {
+    //   ...sourceCard,
+    //   position: 0
+    // });
+
+    console.log(targetList.cards);
+    targetList.cards.forEach((card, idx) => {
+      card.position = idx;
+      this.props.updateCard(boardChannel, {
+        ...card,
+        list_id: targetList.id,
+        position: idx
+      });
+    });
+  }
+
   _handleDropList({ source, target }) {
     const { lists } = this.props.currentBoard;
     const { boardChannel } = this.props;
@@ -50,8 +118,8 @@ class BoardView extends Component {
     });
 
     const sourceList = lists[sourceListIndex];
-    lists.splice(sourceListIndex, 1);
 
+    lists.splice(sourceListIndex, 1);
     lists.splice(targetListIndex, 0, sourceList);
 
     lists.forEach((list, idx) => {
@@ -85,6 +153,8 @@ class BoardView extends Component {
             createCard={this.props.createCard}
             updateCard={this.props.updateCard}
             channel={this.props.boardChannel}
+            onDropCard={this._handleDropCard}
+            onDropCardWhenEmpty={this._handleDropCardWhenEmpty}
             onDrop={this._handleDropList}
             {...list}
           />
@@ -109,7 +179,6 @@ class BoardView extends Component {
         <div
           style={{
             height: "calc(100% - 2em )",
-            // height: "100%",
             display: "flex",
             "overflow-y": "hidden",
             "overflow-x": "scroll"

@@ -56,3 +56,15 @@ body,
 #app .page {
     padding-top: 56px;
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        padding: 0;
+    }
+
+    to {
+        opacity: 1;
+        padding: 1.5em;
+    }
+}

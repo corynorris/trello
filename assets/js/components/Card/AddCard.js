@@ -12,38 +12,37 @@ class AddCard extends Component {
       addCardText: ""
     };
 
-    this.setAddCardRef = this.setAddCardRef.bind(this);
     this._renderAddCardButton = this._renderAddCardButton.bind(this);
     this._renderAddCardForm = this._renderAddCardForm.bind(this);
 
-    this.setAddCardRef = this.setAddCardRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
+    this._setAddCardRef = this._setAddCardRef.bind(this);
+    this._handleClickOutside = this._handleClickOutside.bind(this);
 
-    this.handleAddCardClick = this.handleAddCardClick.bind(this);
-    this.handleAddCardSubmit = this.handleAddCardSubmit.bind(this);
+    this._handleAddCardClick = this._handleAddCardClick.bind(this);
+    this._handleAddCardSubmit = this._handleAddCardSubmit.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
+    document.addEventListener("mousedown", this._handleClickOutside);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
+    document.removeEventListener("mousedown", this._handleClickOutside);
   }
 
-  handleClickOutside(event) {
+  _handleClickOutside(event) {
     if (this.addCardRef && !this.addCardRef.contains(event.target)) {
       this.setState({ isAddingCard: false });
     }
   }
 
-  handleAddCardClick(e) {
+  _handleAddCardClick(e) {
     this.setState({
       isAddingCard: true
     });
   }
 
-  handleAddCardSubmit(e) {
+  _handleAddCardSubmit(e) {
     e.preventDefault();
     this.props.createCard(this.state.addCardText);
     this.setState({ isAddingCard: false, addCardText: "" });
@@ -55,14 +54,14 @@ class AddCard extends Component {
     });
   }
 
-  setAddCardRef(node) {
+  _setAddCardRef(node) {
     this.addCardRef = node;
   }
 
   _renderAddCardButton() {
     return (
       <div
-        onclick={this.handleAddCardClick}
+        onclick={this._handleAddCardClick}
         style={{
           width: "100%",
           padding: "0.5em 0.5em 0.0em 0.5em",
@@ -76,10 +75,10 @@ class AddCard extends Component {
 
   _renderAddCardForm() {
     return (
-      <div ref={this.setAddCardRef}>
+      <div ref={this._setAddCardRef}>
         <form
           style={{ marginBottom: "-0.5em" }}
-          onSubmit={this.handleAddCardSubmit}
+          onSubmit={this._handleAddCardSubmit}
         >
           <div style={{ marginBottom: "0em" }}>
             <TextField
@@ -91,7 +90,7 @@ class AddCard extends Component {
               value={this.state.addCardText}
             />
           </div>
-          <Button style={{}}>Add Card</Button>
+          <Button>Add Card</Button>
         </form>
       </div>
     );

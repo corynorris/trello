@@ -145,4 +145,10 @@ defmodule Trello.Boards do
     |> Card.changeset(attrs)
     |> Repo.update()
   end
+
+  @doc """
+    Gets a list by ID.
+  """
+
+  def get_card!(id), do: Repo.get!(Card, id)
 end

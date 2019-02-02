@@ -91,25 +91,52 @@ const currentBoard = (state = initialState, action) => {
         errors: {}
       };
     case UPDATE_CARD_SUCCESS:
+      // get the current list of the card
+
+      let sourceCard = lists.reduce((acc, list) => {
+        return (
+          list.cards.find(card => {
+            return card.id == action.payload.card.id;
+          }) || acc
+        );
+      });
+
       return {
         ...state,
         loading: false,
         currentBoard: {
           ...state.currentBoard,
           lists: lists.map(list => {
-            if (list.id !== action.payload.card.list_id) {
-              return list;
-            } else {
+            if (
+              sourceCard.list_id == list.id &&
+              sourceCard.list_id != action.payload.card.list_id
+            ) {
               return {
                 ...list,
-                cards: list.cards.map(card => {
-                  if (card.id !== action.payload.card.id) {
-                    return card;
-                  } else {
-                    return action.payload.card;
-                  }
+                cards: list.cards.filter(card => {
+                  return card.id != sourceCard.id;
                 })
               };
+            } else if (list.id == action.payload.card.list_id) {
+              if (list.cards.length == 0) {
+                return {
+                  ...list,
+                  cards: [action.payload.card]
+                };
+              } else {
+                return {
+                  ...list,
+                  cards: list.cards.map(card => {
+                    if (card.id !== action.payload.card.id) {
+                      return card;
+                    } else {
+                      return action.payload.card;
+                    }
+                  })
+                };
+              }
+            } else {
+              return list;
             }
           })
         },
