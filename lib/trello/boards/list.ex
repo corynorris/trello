@@ -3,7 +3,7 @@ defmodule Trello.Boards.List do
   import Ecto.Changeset
   alias Trello.Boards.Board
 
-  @required_fields ~w(name board_id)a
+  @required_fields ~w(name board_id position)a
   @derive {Jason.Encoder, only: [:id, :name, :position, :cards]}
 
   schema "lists" do

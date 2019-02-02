@@ -14,24 +14,25 @@ class AddList extends Component {
       list: {}
     };
     this._renderAddForm = this._renderAddForm.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._setWrapperRef = this._setWrapperRef.bind(this);
+    this._handleClickOutside = this._handleClickOutside.bind(this);
+    this._setListName = this._setListName.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
+    document.addEventListener("mousedown", this._handleClickOutside);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
+    document.removeEventListener("mousedown", this._handleClickOutside);
   }
 
-  setWrapperRef(node) {
+  _setWrapperRef(node) {
     this.wrapperRef = node;
   }
 
-  handleClickOutside(event) {
+  _handleClickOutside(event) {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({ visible: false });
     } else {
@@ -39,7 +40,7 @@ class AddList extends Component {
     }
   }
 
-  setListName(e) {
+  _setListName(e) {
     this.setState({
       list: {
         name: e.target.value
@@ -47,9 +48,10 @@ class AddList extends Component {
     });
   }
 
-  handleSubmit(e) {
+  _handleSubmit(e) {
     e.preventDefault();
-    this.props.createList(this.props.channel, this.state.list);
+    console.log(this.props);
+    this.props.createList(this.state.list);
     this.state = { visible: false, list: {} };
   }
 
@@ -62,14 +64,14 @@ class AddList extends Component {
           </h3>
         </div>
         <Card.Media className="card-media">
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this._handleSubmit}>
             <div style={{ marginBottom: "1em" }}>
               <TextField
                 type="text"
                 fullwidth={true}
                 name="name"
                 placeholder="Name"
-                onInput={this.setListName.bind(this)}
+                onInput={this._setListName.bind(this)}
                 value={this.state.list.name}
               />
             </div>
@@ -82,7 +84,7 @@ class AddList extends Component {
 
   render() {
     return (
-      <div ref={this.setWrapperRef}>
+      <div ref={this._setWrapperRef}>
         <Card
           style={{
             background: this.state.visible ? "white" : "rgba(0, 0, 0, 0.2)",

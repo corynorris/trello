@@ -3,7 +3,6 @@ import ShowCard from "./ShowCard";
 
 class ListCards extends Component {
   render({ cards }) {
-    console.log(cards);
     return (
       <div>
         {cards.map(card => (

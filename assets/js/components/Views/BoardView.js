@@ -4,10 +4,18 @@ import AddList from "../List/AddList";
 import ShowList from "../List/ShowList";
 import LinearProgress from "preact-material-components/LinearProgress";
 
+import { DragDropContext } from "preact-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+
 import "preact-material-components/LayoutGrid/style.css";
 import "preact-material-components/LinearProgress/style.css";
-
+@DragDropContext(HTML5Backend)
 class BoardView extends Component {
+  constructor(props) {
+    super(props);
+    this._handleDropList = this._handleDropList.bind(this);
+    this._handleCreateList = this._handleCreateList.bind(this);
+  }
   componentDidMount() {
     const { socket } = this.props.session;
     if (!socket) {
@@ -29,21 +37,59 @@ class BoardView extends Component {
     this.props.connectToChannel(nextProps.session.socket, this.props.id);
   }
 
+  _handleDropList({ source, target }) {
+    const { lists } = this.props.currentBoard;
+    const { boardChannel } = this.props;
+
+    const sourceListIndex = lists.findIndex(list => {
+      return list.id === source.id;
+    });
+
+    const targetListIndex = lists.findIndex(list => {
+      return list.id === target.id;
+    });
+
+    const sourceList = lists[sourceListIndex];
+    lists.splice(sourceListIndex, 1);
+
+    lists.splice(targetListIndex, 0, sourceList);
+
+    lists.forEach((list, idx) => {
+      list.position = idx;
+      this.props.updateList(boardChannel, list);
+    });
+  }
+
+  _handleCreateList(list) {
+    const { lists } = this.props.currentBoard;
+    this.props.createList(this.props.boardChannel, {
+      ...list,
+      position: lists.length
+    });
+  }
+
   render({ loading, currentBoard: { name, lists } }) {
-    let Lists = lists.map(list => (
-      <div
-        style={{ width: "100px", flex: "0 0 17em", margin: "0 0.66667em 0 0" }}
-        key={list.id}
-      >
-        <ShowList
-          updateList={this.props.updateList}
-          createCard={this.props.createCard}
-          updateCard={this.props.updateCard}
-          channel={this.props.boardChannel}
-          list={list}
-        />
-      </div>
-    ));
+    let Lists = lists
+      .sort((a, b) => a.position - b.position)
+      .map(list => (
+        <div
+          style={{
+            width: "100px",
+            flex: "0 0 17em",
+            margin: "0 0.66667em 0 0"
+          }}
+          key={list.id}
+        >
+          <ShowList
+            updateList={this.props.updateList}
+            createCard={this.props.createCard}
+            updateCard={this.props.updateCard}
+            channel={this.props.boardChannel}
+            onDrop={this._handleDropList}
+            {...list}
+          />
+        </div>
+      ));
 
     // loading = true;
     if (loading) {
@@ -53,7 +99,6 @@ class BoardView extends Component {
     return (
       <div
         style={{
-          // height: "calc(100% - 1em)",
           padding: "1em 1.7em",
           height: "100%"
         }}
@@ -78,10 +123,7 @@ class BoardView extends Component {
               margin: "0 0.66667em 0 0"
             }}
           >
-            <AddList
-              createList={this.props.createList}
-              channel={this.props.boardChannel}
-            />
+            <AddList createList={this._handleCreateList} />
           </div>
         </div>
       </div>

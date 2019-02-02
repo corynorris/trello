@@ -9,7 +9,7 @@ class ListTitle extends Component {
     super(props);
     this.state = {
       isEditingTitle: false,
-      listName: this.props.list.name || ""
+      listName: this.props.name || ""
     };
 
     this.setTitleRef = this.setTitleRef.bind(this);
@@ -48,10 +48,8 @@ class ListTitle extends Component {
 
   handleHeaderSubmit(e) {
     e.preventDefault();
-    this.props.updateList(this.props.channel, {
-      ...this.props.list,
-      name: this.state.listName
-    });
+    this.props.updateTitle(this.state.listName);
+
     this.setState({ isEditingTitle: false });
   }
 
@@ -61,7 +59,7 @@ class ListTitle extends Component {
     });
   }
 
-  render({ list: { name } }) {
+  render({ name }) {
     if (!this.state.isEditingTitle) {
       return (
         <div

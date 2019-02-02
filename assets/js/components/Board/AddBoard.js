@@ -6,7 +6,7 @@ import "preact-material-components/Card/style.css";
 import "preact-material-components/Button/style.css";
 import "preact-material-components/TextField/style.css";
 
-class AddBoard extends Component {
+class AddCard extends Component {
   constructor() {
     super();
     this.state = {
@@ -100,4 +100,4 @@ class AddBoard extends Component {
   }
 }
 
-export default AddBoard;
+export default AddCard;

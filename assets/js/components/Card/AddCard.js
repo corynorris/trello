@@ -45,11 +45,7 @@ class AddCard extends Component {
 
   handleAddCardSubmit(e) {
     e.preventDefault();
-    this.props.createCard(this.props.channel, {
-      name: this.state.addCardText,
-      list_id: this.props.list.id
-    });
-
+    this.props.createCard(this.state.addCardText);
     this.setState({ isAddingCard: false, addCardText: "" });
   }
 
