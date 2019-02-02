@@ -117,9 +117,7 @@ class ShowCard extends Component {
         // <div>
         <div id={id}>
           <div style={isOverStyle} />
-          <div style={basicStyle}>
-            {name} - {position} - {id}
-          </div>
+          <div style={basicStyle}>{name}</div>
         </div>
       )
     );
