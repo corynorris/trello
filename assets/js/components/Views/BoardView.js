@@ -43,7 +43,6 @@ class BoardView extends Component {
     const { lists } = this.props.currentBoard;
     const { boardChannel } = this.props;
 
-    console.log("updating new list with card: ", card);
     this.props.updateCard(boardChannel, card);
   }
 
@@ -88,13 +87,6 @@ class BoardView extends Component {
       targetList.cards.splice(targetIndex, 0, sourceCard);
     }
 
-    // console.log(sourceList.cards);
-    // this.props.updateCard(boardChannel, {
-    //   ...sourceCard,
-    //   position: 0
-    // });
-
-    console.log(targetList.cards);
     targetList.cards.forEach((card, idx) => {
       card.position = idx;
       this.props.updateCard(boardChannel, {
