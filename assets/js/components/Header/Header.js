@@ -20,14 +20,16 @@ class Header extends Component {
         >
           <TopAppBar.Row>
             <TopAppBar.Section align-start>
-              <TopAppBar.Title
-                style={{ paddingLeft: "0.6em", paddingRight: "0.6em" }}
-              >
-                Boards
-              </TopAppBar.Title>
+              <a href="/" style={{ color: "white", textDecoration: "none" }}>
+                <TopAppBar.Title
+                  style={{ paddingLeft: "0.6em", paddingRight: "0.6em" }}
+                >
+                  Boards
+                </TopAppBar.Title>
+              </a>
             </TopAppBar.Section>
             <TopAppBar.Section align-end shrink-to-fit>
-              <Button href="/sign_out" style={{ color: "white" }}>
+              <Button href="/sign_out" style={{ color: "white" }} raised dense>
                 Sign Out
                 <TopAppBar.Icon>exit_to_app</TopAppBar.Icon>
               </Button>
