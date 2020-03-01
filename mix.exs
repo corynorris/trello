@@ -35,17 +35,17 @@ defmodule Trello.MixProject do
     [
       {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.1"},
-      {:phoenix_ecto, "~> 4.0"},
-      {:ecto_sql, "~> 3.0"},
+      {:phoenix_ecto, "~> 4.1"},
+      {:ecto_sql, "~> 3.3"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, "~> 2.14"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
+      {:gettext, "~> 0.17.4"},
+      {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
-      {:guardian, "~> 1.1.1"},
-      {:comeonin, "~> 4.1.2"},
-      {:bcrypt_elixir, "~> 1.1.1"},
+      {:guardian, "~> 2.0"},
+      # {:comeonin, "~> 5.3"},
+      {:bcrypt_elixir, "~> 2.2"},
       {:ex_machina, "~> 2.2", only: :test}
     ]
   end
