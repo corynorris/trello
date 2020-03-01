@@ -44,7 +44,6 @@ defmodule Trello.MixProject do
       {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.0"},
-      # {:comeonin, "~> 5.3"},
       {:bcrypt_elixir, "~> 2.2"},
       {:ex_machina, "~> 2.2", only: :test}
     ]
