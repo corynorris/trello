@@ -23,7 +23,12 @@ class Header extends Component {
               <TopAppBar.Title
                 style={{ paddingLeft: "0.6em", paddingRight: "0.6em" }}
               >
-                Boards
+                <a
+                  href="/"
+                  style={{ color: "white", "text-decoration": "none" }}
+                >
+                  Boards
+                </a>
               </TopAppBar.Title>
             </TopAppBar.Section>
             <TopAppBar.Section align-end shrink-to-fit>
