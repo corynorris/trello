@@ -71,5 +71,5 @@ config :trello, Trello.Repo,
   username: "postgres",
   password: "password",
   database: "trello_dev",
-  hostname: "172.17.0.3",
+  hostname: "localhost",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")

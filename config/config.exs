@@ -14,7 +14,7 @@ config :trello, TrelloWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "yqSXlUUHQ0SN4cqmm/Kd2+MJ0PLKlAQRKR+szpeqRnMKtdnOs01HuJjAutwYF1U8",
   render_errors: [view: TrelloWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Trello.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: MyApp.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,
