@@ -1,20 +1,13 @@
 # Trello
 
-To start your Phoenix server:
+## Overview
+A real-time trello clone that updates your board accross all devices as you go
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+## Demo
+Demo Account: test@123.com  
+Demo Password: password
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+https://desolate-scrubland-45115.herokuapp.com/
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+## Other Notes
+This project was bootstrapped with [Phoenix](https://www.phoenixframework.org/).
