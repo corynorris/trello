@@ -47,7 +47,7 @@ export function createBoard(boardData) {
       .post(process.env.PUBLIC_URL + "/api/v1/boards", { board: boardData }, { headers: header })
       .then(json => {
         dispatch(createBoardSuccess(json.data));
-        route(`/board/${json.data.board.id}`);
+        route(`${process.env.PUBLIC_URL}/board/${json.data.board.id}`);
       });
   };
 }

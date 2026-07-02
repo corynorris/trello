@@ -77,7 +77,7 @@ class SignInView extends Component {
               Sign In
             </Button>
           </form>
-          <Button style={{ width: "100%", fontSize: "12px" }} href="/sign_up">
+          <Button style={{ width: "100%", fontSize: "12px" }} href={process.env.PUBLIC_URL + "/sign_up"}>
             create an account
           </Button>
         </Card.Media>

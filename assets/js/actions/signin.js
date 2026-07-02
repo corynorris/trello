@@ -16,7 +16,7 @@ export function signIn(credentials) {
       .then(json => {
         localStorage.setItem(JWT_TOKEN, json.data.token);
         dispatch(signInSuccess(json.data));
-        route("/");
+        route(process.env.PUBLIC_URL + "/");
       })
       .catch(errors => {
         if (errors.response && errors.response.data.errors) {

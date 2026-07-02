@@ -115,7 +115,7 @@ class SignUpView extends Component {
               Sign Up
             </Button>
           </form>
-          <Button style={{ width: "100%", fontSize: "12px" }} href="/sign_in">
+          <Button style={{ width: "100%", fontSize: "12px" }} href={process.env.PUBLIC_URL + "/sign_in"}>
             I already have an account
           </Button>
         </div>

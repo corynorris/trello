@@ -6,7 +6,7 @@ import "preact-material-components/Button/style.css";
 
 class ShowBoard extends Component {
   handleClick() {
-    route(`/board/${this.props.id}`);
+    route(`${process.env.PUBLIC_URL}/board/${this.props.id}`);
   }
 
   render({ name }) {

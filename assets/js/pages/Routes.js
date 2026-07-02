@@ -13,6 +13,8 @@ import {
 } from "../actions/session";
 import { JWT_TOKEN } from "../constants";
 
+const BASE = process.env.PUBLIC_URL || "";
+
 class Routes extends Component {
   handleRoute = e => {
     const store = this.props.store;
@@ -24,9 +26,9 @@ class Routes extends Component {
     const isAuthenticated = currentUser != null;
     const canAuthenticate = localStorage.getItem(JWT_TOKEN) != null;
 
-    if (e.url === "/sign_out") {
+    if (e.url === `${BASE}/sign_out`) {
       dispatch(signOutUser());
-      route("/sign_in", true);
+      route(`${BASE}/sign_in`, true);
     } else if (!isAuthenticated && canAuthenticate) {
       if (currentUser) {
         dispatch(setCurrentUser(currentUser));
@@ -35,10 +37,10 @@ class Routes extends Component {
       }
     } else if (
       !isAuthenticated &&
-      e.url !== "/sign_in" &&
-      e.url !== "/sign_up"
+      e.url !== `${BASE}/sign_in` &&
+      e.url !== `${BASE}/sign_up`
     ) {
-      route("/sign_in", true);
+      route(`${BASE}/sign_in`, true);
     }
   };
 
@@ -46,10 +48,10 @@ class Routes extends Component {
     return (
       <Provider store={store}>
         <Router onChange={this.handleRoute}>
-          <Home path="/" />
-          <Board path="/board/:id" />
-          <SignInPage path="/sign_in" />
-          <SignUpPage path="/sign_up" />
+          <Home path={`${BASE}/`} />
+          <Board path={`${BASE}/board/:id`} />
+          <SignInPage path={`${BASE}/sign_in`} />
+          <SignUpPage path={`${BASE}/sign_up`} />
         </Router>
       </Provider>
     );

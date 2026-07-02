@@ -24,7 +24,7 @@ class Header extends Component {
                 style={{ paddingLeft: "0.6em", paddingRight: "0.6em" }}
               >
                 <a
-                  href="/"
+                  href={process.env.PUBLIC_URL + "/"}
                   style={{ color: "white", "text-decoration": "none" }}
                 >
                   Boards
@@ -32,7 +32,7 @@ class Header extends Component {
               </TopAppBar.Title>
             </TopAppBar.Section>
             <TopAppBar.Section align-end shrink-to-fit>
-              <Button href="/sign_out" style={{ color: "white" }}>
+              <Button href={process.env.PUBLIC_URL + "/sign_out"} style={{ color: "white" }}>
                 Sign Out
                 <TopAppBar.Icon>exit_to_app</TopAppBar.Icon>
               </Button>
