@@ -26,9 +26,21 @@ if config_env() == :prod do
 
   base_path = System.get_env("BASE_PATH") || ""
 
+  # Public hostname the app is served from (behind Traefik/nginx TLS termination).
+  # Used both for URL generation and, critically, for WebSocket origin checking:
+  # Phoenix defaults check_origin to true in prod and compares the request Origin
+  # against this host. It must be the real public domain, NOT the bind address.
+  host =
+    System.get_env("PHX_HOST") ||
+      raise """
+      environment variable PHX_HOST is missing.
+      It must be the public hostname the app is served from, e.g. demos.corynorris.me
+      """
+
   config :trello, TrelloWeb.Endpoint,
     http: [:inet6, port: port],
-    url: [host: System.get_env("HOST") || "localhost", port: port, path: base_path],
+    url: [host: host, port: 443, scheme: "https", path: base_path],
+    check_origin: ["https://#{host}", "http://#{host}"],
     secret_key_base: secret_key_base
 
   config :trello, TrelloWeb.Guardian,
