@@ -2,14 +2,15 @@
     "presets": [
         ["@babel/preset-env", {
             "targets": "> 0.25%, not dead"
-        }],
-        ["@babel/preset-react", {
-            "runtime": "classic",
-            "pragma": "h",
-            "pragmaFrag": "Fragment"
         }]
     ],
     "plugins": [
+        ["@babel/plugin-transform-react-jsx", {
+            "runtime": "classic",
+            "pragma": "h",
+            "pragmaFrag": "Fragment"
+        }],
+        "@babel/plugin-transform-react-display-name",
         ["@babel/plugin-proposal-decorators", { "version": "legacy" }]
     ]
 }
