@@ -27,7 +27,7 @@ const signUp = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        errors: action.payload.errors
+        errors: action.payload.errors || {}
       };
     default:
       return state;

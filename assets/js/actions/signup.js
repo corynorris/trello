@@ -20,7 +20,7 @@ export function signUp(userData) {
         if (errors.response && errors.response.data.errors) {
           dispatch(signUpFailure(errors.response.data.errors));
         } else {
-          dispatch(signUpFailure(null));
+          dispatch(signUpFailure({}));
         }
       });
   };

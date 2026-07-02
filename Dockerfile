@@ -41,4 +41,4 @@ EXPOSE 4000
 ENV MIX_ENV=prod
 ENV PORT=4000
 
-CMD ["mix", "phx.server"]
+CMD sh -c "mix ecto.migrate && mix phx.server"
