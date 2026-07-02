@@ -5,9 +5,9 @@ defmodule Trello.MixProject do
     [
       app: :trello,
       version: "0.1.0",
-      elixir: "~> 1.5",
+      elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -33,19 +33,21 @@ defmodule Trello.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.7"},
-      {:phoenix_pubsub, "~> 2.0"},
-      {:phoenix_ecto, "~> 4.1"},
-      {:ecto_sql, "~> 3.3"},
-      {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.14"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.17.4"},
-      {:jason, "~> 1.1"},
-      {:plug_cowboy, "~> 2.1"},
-      {:guardian, "~> 2.0"},
-      {:bcrypt_elixir, "~> 2.2"},
-      {:ex_machina, "~> 2.2", only: :test}
+      {:phoenix, "~> 1.7"},
+      {:phoenix_view, "~> 2.0"},
+      {:phoenix_ecto, "~> 4.6"},
+      {:ecto_sql, "~> 3.12"},
+      {:postgrex, "~> 0.19"},
+      {:phoenix_html, "~> 4.1"},
+      {:phoenix_html_helpers, "~> 1.0"},
+      {:phoenix_live_dashboard, "~> 0.8"},
+      {:gettext, "~> 0.26"},
+      {:jason, "~> 1.4"},
+      {:plug_cowboy, "~> 2.7"},
+      {:guardian, "~> 2.3"},
+      {:bcrypt_elixir, "~> 3.1"},
+      {:phoenix_pubsub, "~> 2.1"},
+      {:ex_machina, "~> 2.8", only: :test}
     ]
   end
 

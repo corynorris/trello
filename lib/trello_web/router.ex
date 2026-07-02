@@ -14,7 +14,6 @@ defmodule TrelloWeb.Router do
     plug(TrelloWeb.Guardian.Pipeline)
   end
 
-  # Other scopes may use custom stacks.
   scope "/api", TrelloWeb do
     pipe_through(:api)
 
@@ -30,5 +29,15 @@ defmodule TrelloWeb.Router do
     pipe_through(:browser)
 
     get("/*path", PageController, :index)
+  end
+
+  # Enable LiveDashboard in development
+  if Application.compile_env(:trello, :dev_routes) do
+    import Phoenix.LiveDashboard.Router
+
+    scope "/dev" do
+      pipe_through(:browser)
+      live_dashboard("/dashboard")
+    end
   end
 end

@@ -1,15 +1,15 @@
 {
     "presets": [
-        "@babel/preset-react",
-        "@babel/preset-env"
+        ["@babel/preset-env", {
+            "targets": "> 0.25%, not dead"
+        }],
+        ["@babel/preset-react", {
+            "runtime": "classic",
+            "pragma": "h",
+            "pragmaFrag": "Fragment"
+        }]
     ],
     "plugins": [
-        [
-            "@babel/plugin-proposal-decorators",
-            {
-                "legacy": true
-            }
-        ],
-        "@babel/plugin-proposal-class-properties"
+        ["@babel/plugin-proposal-decorators", { "version": "legacy" }]
     ]
 }

@@ -1,1 +1,1 @@
-web: elixir --sname server -S mix phx.server
+web: mix phx.server

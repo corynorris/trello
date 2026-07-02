@@ -5,10 +5,11 @@ defmodule Trello.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      {Phoenix.PubSub, name: MyApp.PubSub},
+      {Phoenix.PubSub, name: Trello.PubSub},
       # Start the Ecto repository
       Trello.Repo,
       # Start the endpoint when the application starts
@@ -25,6 +26,7 @@ defmodule Trello.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @impl true
   def config_change(changed, _new, removed) do
     TrelloWeb.Endpoint.config_change(changed, removed)
     :ok
