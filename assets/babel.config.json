@@ -1,16 +1,22 @@
 {
-    "presets": [
-        ["@babel/preset-env", {
-            "targets": "> 0.25%, not dead"
-        }]
-    ],
-    "plugins": [
-        ["@babel/plugin-transform-react-jsx", {
-            "runtime": "classic",
-            "pragma": "h",
-            "pragmaFrag": "Fragment"
-        }],
-        "@babel/plugin-transform-react-display-name",
-        ["@babel/plugin-proposal-decorators", { "version": "legacy" }]
-    ]
+	"presets": [
+		[
+			"@babel/preset-env",
+			{
+				"targets": "> 0.25%, not dead"
+			}
+		]
+	],
+	"plugins": [
+		[
+			"@babel/plugin-transform-react-jsx",
+			{
+				"runtime": "classic",
+				"pragma": "h",
+				"pragmaFrag": "Fragment"
+			}
+		],
+		"@babel/plugin-transform-react-display-name",
+		["@babel/plugin-proposal-decorators", { "version": "legacy" }]
+	]
 }
