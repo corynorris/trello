@@ -1,10 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, options) => {
   const devMode = options.mode !== 'production';
+  const publicPath = (process.env.PUBLIC_URL || '') + '/js/';
 
   return {
     optimization: {
@@ -19,7 +21,7 @@ module.exports = (env, options) => {
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, '../priv/static/js'),
-      publicPath: '/js/'
+      publicPath: publicPath
     },
     devtool: devMode ? 'eval-cheap-module-source-map' : false,
     module: {
@@ -50,6 +52,9 @@ module.exports = (env, options) => {
       ]
     },
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL || '')
+      }),
       new MiniCssExtractPlugin({ filename: '../css/app.css' }),
       new CopyWebpackPlugin({ patterns: [{ from: 'static/', to: '../' }] })
     ]

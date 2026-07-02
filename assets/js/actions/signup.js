@@ -10,7 +10,7 @@ export function signUp(userData) {
   return dispatch => {
     dispatch(signUpBegin());
     return axios
-      .post("/api/v1/sign_up", { user: userData })
+      .post(process.env.PUBLIC_URL + "/api/v1/sign_up", { user: userData })
       .then(json => {
         localStorage.setItem(JWT_TOKEN, json.data.token);
         dispatch(signUpSuccess(json.data));

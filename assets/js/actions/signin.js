@@ -12,7 +12,7 @@ export function signIn(credentials) {
     dispatch(signInBegin());
 
     return axios
-      .post("/api/v1/sign_in", { credentials: credentials })
+      .post(process.env.PUBLIC_URL + "/api/v1/sign_in", { credentials: credentials })
       .then(json => {
         localStorage.setItem(JWT_TOKEN, json.data.token);
         dispatch(signInSuccess(json.data));

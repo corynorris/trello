@@ -24,9 +24,11 @@ if config_env() == :prod do
 
   port = String.to_integer(System.get_env("PORT") || "4000")
 
+  base_path = System.get_env("BASE_PATH") || ""
+
   config :trello, TrelloWeb.Endpoint,
     http: [:inet6, port: port],
-    url: [host: System.get_env("HOST") || "localhost", port: port],
+    url: [host: System.get_env("HOST") || "localhost", port: port, path: base_path],
     secret_key_base: secret_key_base
 
   config :trello, TrelloWeb.Guardian,

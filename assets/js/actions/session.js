@@ -8,7 +8,7 @@ export const SET_CURRENT_USER_SUCCESS = "SET_CURRENT_USER_SUCCESS";
 // Gets the current user and connects to channel
 export function setCurrentUser(user) {
   return dispatch => {
-    let socket = new Socket("/socket", {
+    let socket = new Socket(process.env.PUBLIC_URL + "/socket", {
       params: { token: localStorage.getItem(JWT_TOKEN) }
     });
 
@@ -40,7 +40,7 @@ export function getCurrentUser() {
       Authorization: `Bearer ${localStorage.getItem(JWT_TOKEN)}`
     };
 
-    return axios.get("/api/v1/current_user", { headers: header }).then(json => {
+    return axios.get(process.env.PUBLIC_URL + "/api/v1/current_user", { headers: header }).then(json => {
       dispatch(setCurrentUser(json.data.user));
     });
   };

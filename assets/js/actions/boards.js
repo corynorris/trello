@@ -15,7 +15,7 @@ export function fetchBoards() {
       Authorization: `Bearer ${localStorage.getItem(JWT_TOKEN)}`
     };
 
-    return axios.get("/api/v1/boards", { headers: header }).then(json => {
+    return axios.get(process.env.PUBLIC_URL + "/api/v1/boards", { headers: header }).then(json => {
       dispatch(fetchBoardsSuccess(json.data));
     });
   };
@@ -44,7 +44,7 @@ export function createBoard(boardData) {
     };
 
     return axios
-      .post("/api/v1/boards", { board: boardData }, { headers: header })
+      .post(process.env.PUBLIC_URL + "/api/v1/boards", { board: boardData }, { headers: header })
       .then(json => {
         dispatch(createBoardSuccess(json.data));
         route(`/board/${json.data.board.id}`);
