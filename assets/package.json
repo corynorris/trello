@@ -6,20 +6,20 @@
 		"watch": "webpack --mode development --watch"
 	},
 	"dependencies": {
-		"@babel/plugin-transform-react-display-name": "~7.24.0",
-		"@babel/plugin-transform-react-jsx": "~7.24.0",
-		"@babel/preset-react": "~7.24.0",
+		"@babel/plugin-transform-react-display-name": "~8.0.1",
+		"@babel/plugin-transform-react-jsx": "~8.0.1",
+		"@babel/preset-react": "~8.0.1",
 		"axios": "^1.7.0",
 		"phoenix": "^1.8.8",
-		"preact": "^8.5.3",
+		"preact": "^11.2.0",
 		"preact-context": "^1.1.4",
 		"preact-dnd": "^2.1.6",
 		"preact-material-components": "^1.5.5",
 		"preact-redux": "^2.1.0",
-		"preact-router": "^2.6.1",
-		"react-dnd-html5-backend": "^10.0.2",
-		"redux": "^4.2.1",
-		"redux-thunk": "^2.4.2"
+		"preact-router": "^4.1.2",
+		"react-dnd-html5-backend": "^16.0.1",
+		"redux": "^5.0.1",
+		"redux-thunk": "^3.1.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.29.13",
