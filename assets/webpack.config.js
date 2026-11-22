@@ -34,7 +34,13 @@ module.exports = (env, options) => {
           }
         },
         {
-          test: /\.[s]?css$/,
+          // Plain CSS (including preact-material-components' styles) must not go
+          // through Sass: modern dart-sass rejects its legacy `calc()` syntax.
+          test: /\.css$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        },
+        {
+          test: /\.s[ac]ss$/,
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
