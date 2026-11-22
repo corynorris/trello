@@ -6,9 +6,9 @@
 		"watch": "webpack --mode development --watch"
 	},
 	"dependencies": {
-		"@babel/plugin-transform-react-display-name": "~7.24.0",
-		"@babel/plugin-transform-react-jsx": "~7.24.0",
-		"@babel/preset-react": "~7.24.0",
+		"@babel/plugin-transform-react-display-name": "~7.29.7",
+		"@babel/plugin-transform-react-jsx": "~7.29.7",
+		"@babel/preset-react": "~7.29.7",
 		"axios": "^1.7.0",
 		"phoenix": "^1.8.8",
 		"preact": "^8.5.3",
